@@ -1,8 +1,8 @@
-package triply.backend.Controller;
+package triply.backend.controller;
 
 import org.springframework.web.bind.annotation.*;
-import triply.backend.Model.Trip;
-import triply.backend.Service.TripService;
+import triply.backend.model.Trip;
+import triply.backend.service.TripService;
 
 import java.util.List;
 

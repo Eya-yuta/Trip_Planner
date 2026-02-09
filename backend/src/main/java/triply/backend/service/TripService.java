@@ -1,8 +1,9 @@
-package triply.backend.Service;
+package triply.backend.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import triply.backend.Model.Trip;
-import triply.backend.Repository.TripRepo;
+import triply.backend.model.Trip;
+import triply.backend.repository.TripRepo;
 
 import java.util.List;
 

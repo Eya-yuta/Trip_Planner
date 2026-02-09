@@ -1,8 +1,8 @@
-package triply.backend.Repository;
+package triply.backend.repository;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
-import triply.backend.Model.Trip;
+import triply.backend.model.Trip;
 
 import java.util.List;
 

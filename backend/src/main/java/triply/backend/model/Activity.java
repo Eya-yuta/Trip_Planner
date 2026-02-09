@@ -1,4 +1,4 @@
-package triply.backend.Model;
+package triply.backend.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

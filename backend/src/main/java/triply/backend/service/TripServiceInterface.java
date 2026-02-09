@@ -1,6 +1,6 @@
-package triply.backend.Service;
+package triply.backend.service;
 
-import triply.backend.Model.Trip;
+import triply.backend.model.Trip;
 
 import java.util.List;
 
