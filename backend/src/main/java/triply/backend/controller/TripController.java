@@ -1,5 +1,6 @@
 package triply.backend.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import triply.backend.model.Trip;
 import triply.backend.service.TripService;
@@ -7,13 +8,10 @@ import triply.backend.service.TripService;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/trips")
 public class TripController {
     private final TripService tripService;
-
-    public TripController(TripService tripService) {
-        this.tripService = tripService;
-    }
 
     @GetMapping
     // GET all trips for user
