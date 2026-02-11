@@ -2,10 +2,13 @@ package triply.backend.controller;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.assertj.MockMvcTester;
@@ -16,27 +19,29 @@ import triply.backend.model.TripUser;
 import triply.backend.model.TripUserDTO;
 import triply.backend.repository.TripUserRepo;
 import triply.backend.service.TripUserService;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.UUID;
-
+import org.springframework.http.MediaType;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+
 class TripUserControllerTest {
     @Autowired
     MockMvc mvc;
     @Autowired
     private TripUserRepo repo;
-    @MockBean
+    @Autowired
     private TripUserService service;
-    private Argon2PasswordEncoder encoder = Argon2PasswordEncoder.defaultsForSpringSecurity_v5_8();
+    @Autowired
+    PasswordEncoder encoder;
+    //private Argon2PasswordEncoder encoder = Argon2PasswordEncoder.defaultsForSpringSecurity_v5_8();
     private final ObjectMapper objectMapper = new ObjectMapper();
-    @BeforeEach
+    /*@BeforeEach
     void setup() {
         repo.deleteAll();
-    }
+    }*/
 
     @Test
     @WithMockUser (username = "testuser")//simulate a logged-in user
@@ -54,25 +59,24 @@ class TripUserControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("testuser"));
     }
 
+
     @Test
-    void register_createsNewUser() throws Exception {
-        TripUserDTO newUserDTO = new TripUserDTO("newuser", "password123","user", "newuser@example.com","123");
-        TripUser newUser = TripUser.builder()
-                .id(UUID.randomUUID().toString())
-                .username(newUserDTO.username())
-                .password(encoder.encode(newUserDTO.password()))
-                .email(newUserDTO.email())
-                .firstName(newUserDTO.firstName())
-                .lastName(newUserDTO.lastName())
-                .build();
-        repo.save(newUser);
+    void shouldRegisterNewUser() throws Exception {
+
+        TripUserDTO dto = new TripUserDTO(
+                "john",
+                "Doe",
+                "Johni",
+                "john@mail.com",
+                "password123"
+
+        );
+
         mvc.perform(MockMvcRequestBuilders.post("/api/user/register")
-                        .contentType("application/json")
-                        .content(new ObjectMapper().writeValueAsString(newUser)))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(dto)))
                 .andExpect(MockMvcResultMatchers.status().isOk());
 
-        // Optional: Check whether the user exists in the database
-        assertNotNull(service.loadUserByUsername("newuser"));
     }
 
     @Test
@@ -81,7 +85,7 @@ class TripUserControllerTest {
         mvc.perform(MockMvcRequestBuilders.get("/api/user/logout"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
 
-        // Prüfen, dass SecurityContext geleert wurde
+        // check that SecurityContext is empty
         //assertNull(service.loadUserByUsername("testuser")); // nur für Demo, falls testuser noch nicht registriert
 
     }

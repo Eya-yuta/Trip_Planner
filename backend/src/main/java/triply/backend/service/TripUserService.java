@@ -40,11 +40,11 @@ public class TripUserService implements UserDetailsService {
         }*/
         TripUser user = TripUser.builder()
                 .id(UUID.randomUUID().toString())
-                .username(newUser.username())
-                .password(encoder.encode(newUser.password()))
-                .email(newUser.email())
                 .firstName(newUser.firstName())
                 .lastName(newUser.lastName())
+                .username(newUser.username())
+                .email(newUser.email())
+                .password(encoder.encode(newUser.password()))
                 .build();
         //repo.save(user);
         try {

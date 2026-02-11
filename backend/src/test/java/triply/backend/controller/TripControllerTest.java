@@ -69,7 +69,7 @@ class TripControllerTest {
         trip.setActivities(List.of(new Activity(1, "Louvre Museum")));
 
         mockMvc.perform(MockMvcRequestBuilders.post("/api/trips")
-                        .contentType(MediaType.APPLICATION_JSON)//COntent ist JSON
+                        .contentType(MediaType.APPLICATION_JSON)//Content ist JSON
                         .content(objectMapper.writeValueAsString(trip))) // Convert Object in JSON Body
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.title").value("Paris Trip"))
