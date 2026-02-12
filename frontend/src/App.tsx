@@ -20,9 +20,9 @@ function App() {
           <Routes>
               <Route path="/" element={<HomePage/>} />
               <Route path="/login" element={<LoginPage setUser={setUser}/>} />
-              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/register" element={<RegisterPage/>} />
               <Route element={<ProtectedRoute user={user}/>}>
-              <Route path="/hello" element={<HelloPage user={user}/>} />
+              <Route path="/hello" element={<HelloPage user={user} setUser={setUser}/>} />
               </Route>
           </Routes>
   );
