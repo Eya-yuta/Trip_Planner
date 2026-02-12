@@ -75,7 +75,7 @@ button:focus-visible {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;/* center horizontally */
-    padding-top: 30px;/* Distance from top edge */
+    padding-top: 5px;/* Distance from top edge */
 }
 
 .app-title {
@@ -142,3 +142,22 @@ button:focus-visible {
     align-self: flex-start; /* align label to the left */
 }
 
+.register-text {
+    margin-top: 1.5rem;
+    font-size: 0.95rem;
+    color: #334155;
+}
+
+.register-link {
+    color: #1d4ed8;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 0.3rem;
+}
+
+.register-link:hover {
+    text-decoration: underline;
+}
+.register-page .login-form {
+    margin-top: 4px; /* smaller distance hier */
+}

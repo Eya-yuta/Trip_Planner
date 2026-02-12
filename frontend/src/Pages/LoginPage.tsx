@@ -1,4 +1,11 @@
+import {useNavigate} from "react-router-dom";
+
 export default function LoginPage() {
+        const navigate = useNavigate();
+
+        const goRegisterPage = () => {
+            navigate("/register");
+        };
     return (
         <div className="app-container">
             <h1 className="app-title">Triply</h1>
@@ -13,6 +20,16 @@ export default function LoginPage() {
                     Login
                 </button>
             </form>
+            {/* Register Hinweis */}
+            <p className="register-text">
+                Don't have an account yet?{" "}
+                <span
+                    className="register-link"
+                    onClick={goRegisterPage}
+                >
+          Register
+        </span>
+            </p>
         </div>
     );
 }
