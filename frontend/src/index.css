@@ -66,3 +66,50 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+/* Start */
+.app-container {
+    height: 100vh;
+    display: flex;
+    /* align top */
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;/* center horizontally */
+    padding-top: 30px;/* Distance from top edge */
+}
+
+.app-title {
+    font-size: 4rem;
+    font-weight: bold;
+    text-align: center;
+    color: #1d4ed8; /* blau */
+    margin: 0; /* overrides default margins */
+}
+
+.app-subtitle {
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+    color: #334155; /* dark grey*/
+    margin-top: 25px; /*distance to the title*/
+}
+.next-button {
+    position: fixed;        /* fixed at the bottom right */
+    bottom: 2rem;           /* distance from the bottom */
+    right: 2rem;            /* distance from the right */
+    padding: 0.75rem 1.5rem; /* generous inner padding */
+    font-size: 1.25rem;     /* font size */
+    font-weight: bold;       /* bold text */
+    color: white;           /* text color */
+    background-color: #1d4ed8; /* blue, same as App name */
+    border: none;
+    border-radius: 0.5rem;  /* rounded corners */
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* subtle shadow */
+    transition: transform 0.2s, background-color 0.2s; /* hover effect */
+}
+
+.next-button:hover {
+    background-color: #2563eb; /* lighter blue on hover */
+    transform: translateY(-2px); /* small "lift" effect */
+}
