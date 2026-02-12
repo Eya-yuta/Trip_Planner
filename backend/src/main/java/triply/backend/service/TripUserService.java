@@ -32,12 +32,6 @@ public class TripUserService implements UserDetailsService {
     }
 
     public void registerNewUser(TripUserDTO newUser) {
-        /*if (repo.findByUsername(newUser.username()).isPresent()) {
-            throw new RuntimeException("Username already exists!");
-        }
-        if (repo.findByEmail(newUser.email()).isPresent()) {
-            throw new RuntimeException("Email already exists!");
-        }*/
         TripUser user = TripUser.builder()
                 .id(UUID.randomUUID().toString())
                 .firstName(newUser.firstName())
@@ -46,7 +40,7 @@ public class TripUserService implements UserDetailsService {
                 .email(newUser.email())
                 .password(encoder.encode(newUser.password()))
                 .build();
-        //repo.save(user);
+
         try {
             repo.save(user);
         } catch (DuplicateKeyException e) {

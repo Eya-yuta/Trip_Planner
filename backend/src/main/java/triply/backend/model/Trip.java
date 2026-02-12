@@ -18,7 +18,7 @@ public class Trip {
     @Id
     private String id;
 
-    private String userId; // first "demo-user"
+    private String userId;
     private String title;
     private String destination;
     private String startDate;
