@@ -57,5 +57,4 @@ public class TripUserService implements UserDetailsService {
         }
     }
 
-
 }

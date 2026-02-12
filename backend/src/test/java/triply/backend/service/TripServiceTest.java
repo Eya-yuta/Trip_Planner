@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import triply.backend.model.Activity;
 import triply.backend.model.Trip;
+import triply.backend.model.TripDTO;
 import triply.backend.repository.TripRepo;
 
 import java.util.List;
@@ -79,19 +80,32 @@ class TripServiceTest {
 
     @Test
     void createTrip_shouldSaveTrip() {
-        when(tripRepo.save(trip)).thenReturn(trip);
 
-        Trip result = tripService.createTrip(trip);
+        TripDTO tripDTO = new TripDTO(
+                "Paris Trip",
+                "Paris",
+                "2026-04-01",
+                "2026-04-07",
+                "Spring vacation",
+                List.of(new Activity(1, "Eiffel Tower"))
+        );
+
+        when(tripRepo.save(any(Trip.class)))
+                .thenAnswer(invocation -> invocation.getArgument(0));
+
+        Trip result = tripService.createTrip(tripDTO);
 
         assertEquals("Paris Trip", result.getTitle());
-        verify(tripRepo).save(trip);
+        assertEquals("Paris", result.getDestination());
+
+        verify(tripRepo).save(any(Trip.class));
     }
+
 
     @Test
     void updateTrip_shouldUpdateExistingTrip() {
-        Trip updatedTrip = new Trip(
-                null,
-                null,
+
+        TripDTO updatedTripDTO = new TripDTO(
                 "Updated Title",
                 "Rome",
                 "2026-05-01",
@@ -100,17 +114,28 @@ class TripServiceTest {
                 List.of(new Activity(1, "Colosseum"))
         );
 
-        when(tripRepo.findById("1"))
-                .thenReturn(Optional.of(trip));
-        when(tripRepo.save(any(Trip.class)))
-                .thenReturn(trip);
+        // Mock existing trip
+        Trip existingTrip = new Trip();
+        existingTrip.setId("1");
+        existingTrip.setUserId("demo-user");  // Important!
+        existingTrip.setTitle("Old Title");
+        existingTrip.setDestination("Paris");
+        existingTrip.setNotes("Old notes");
+        existingTrip.setActivities(List.of());
 
-        Trip result = tripService.updateTrip("1", updatedTrip);
+        when(tripRepo.findById("1"))
+                .thenReturn(Optional.of(existingTrip));
+
+        when(tripRepo.save(any(Trip.class)))
+                .thenAnswer(invocation -> invocation.getArgument(0));
+
+        Trip result = tripService.updateTrip("1", updatedTripDTO);
 
         assertEquals("Updated Title", result.getTitle());
         assertEquals("Rome", result.getDestination());
         assertEquals("Updated notes", result.getNotes());
-        verify(tripRepo).save(trip);
+
+        verify(tripRepo).save(existingTrip);
     }
 
     @Test
