@@ -38,10 +38,6 @@ class TripUserControllerTest {
     PasswordEncoder encoder;
     //private Argon2PasswordEncoder encoder = Argon2PasswordEncoder.defaultsForSpringSecurity_v5_8();
     private final ObjectMapper objectMapper = new ObjectMapper();
-    /*@BeforeEach
-    void setup() {
-        repo.deleteAll();
-    }*/
 
     @Test
     @WithMockUser (username = "testuser")//simulate a logged-in user
