@@ -23,13 +23,12 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-        //Von HIER
+        //from here
         CsrfTokenRequestAttributeHandler requestAttributeHandler = new CsrfTokenRequestAttributeHandler();
         requestAttributeHandler.setCsrfRequestAttributeName(null);
-        //Bis HIER optional, wenn du csrf aktivieren willst.
-        //Wenn nicht, dann einfach, wie bei oauth auch csrf disablen :-)
+        //to here optional,if csrf will be activated
         return httpSecurity
-                //Hier csrf disablen, genau wie in der SecurityConfig von oauth
+                //Here csrf disable
                 //.csrf(csrf -> csrf
                         //.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                         //.csrfTokenRequestHandler(requestAttributeHandler))

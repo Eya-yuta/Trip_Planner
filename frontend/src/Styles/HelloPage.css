@@ -1,0 +1,57 @@
+.hello-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;  /* keep items at top */
+    align-items: flex-start;      /* align left, not center */
+    padding-top: 100px;           /* distance from top / header */
+    padding-left: 20px;           /* align with header padding */
+    padding-right: 20px;          /* optional right padding */
+}
+
+.hello-title {
+    font-size: 4rem;
+    font-weight: bold;
+    text-align: left;             /* align text left */
+    color: #1d4ed8;
+    margin: 0 0 15px 0;
+}
+
+.hello-subtitle {
+    font-size: 25px;
+    font-weight: bold;
+    text-align: left;             /* align text left */
+    color: #334155;
+    margin-top: 25px;
+}
+
+/* Header: title left, logout right, fixed at top */
+.hello-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    z-index: 1000;
+    box-sizing: border-box;
+}
+
+/* Logout button */
+.logout-button {
+    padding: 12px 24px;
+    font-size: 1rem;
+    cursor: pointer;
+    white-space: nowrap;
+}
+.hello-content {   /* new class for the inner div */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* left-align children */
+    width: 100%;             /* take full width */
+    margin-top: 25px;
+}

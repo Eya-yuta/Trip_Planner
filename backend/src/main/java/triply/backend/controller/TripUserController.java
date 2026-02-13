@@ -13,7 +13,7 @@ import triply.backend.service.TripUserService;
 public class TripUserController {
     private final TripUserService service;
 
-    @GetMapping
+    @GetMapping(produces = "text/plain")
     public String getMe(){
         return SecurityContextHolder
                 .getContext()
@@ -21,7 +21,7 @@ public class TripUserController {
                 .getName();
     }
 
-    @PostMapping("/login")
+    @PostMapping(value = "/login", produces = "text/plain")
     public String login(){
         return SecurityContextHolder
                 .getContext()
