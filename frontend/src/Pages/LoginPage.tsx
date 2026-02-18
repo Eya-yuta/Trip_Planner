@@ -1,6 +1,7 @@
 import {useNavigate} from "react-router-dom";
 import {type SubmitEvent, useState} from "react";
 import axios from "axios";
+import "../Styles/LoginPage.css";
 
 type LoginPageProps= {
     setUser:(username:string) => void
@@ -53,7 +54,7 @@ export default function LoginPage(props:Readonly<LoginPageProps>) {
                 </button>
                 {error && <p className="error-text">{error}</p>}
             </form>
-            {/* Register Hinweis */}
+            {/* Register text */}
             <p className="register-text">
                 Don't have an account yet?{" "}
                 <span

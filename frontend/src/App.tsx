@@ -7,6 +7,7 @@ import HelloPage from "./Pages/HelloPage.tsx";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import ProtectedRoute from "./ProtectedRoute.tsx";
+import DestinationPage from "./Pages/DestinationPage.tsx";
 
 function App() {
     const [user, setUser] = useState<string>("anonymousUser")
@@ -19,6 +20,7 @@ function App() {
 
           <Routes>
               <Route path="/" element={<HomePage/>} />
+              <Route path="/destination/:id" element={<DestinationPage />} />
               <Route path="/login" element={<LoginPage setUser={setUser}/>} />
               <Route path="/register" element={<RegisterPage/>} />
               <Route element={<ProtectedRoute user={user}/>}>

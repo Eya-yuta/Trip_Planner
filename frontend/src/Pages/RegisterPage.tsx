@@ -1,6 +1,7 @@
 import {useNavigate} from "react-router-dom";
 import {type SubmitEvent,useState} from "react";
 import axios from "axios";
+import "../Styles/RegisterPage.css";
 
 export default function RegisterPage() {
     const [firstName, setFirstName] = useState<string>("")
