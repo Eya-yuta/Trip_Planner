@@ -1,6 +1,7 @@
 import {useNavigate, useParams} from "react-router-dom";
 import {destinations} from "../Types/Destination.ts";
 import {useEffect, useState} from "react";
+import SafeImage from "../components/SafeImage";
 
 export default function DestinationPage() {
     const { id } = useParams();
@@ -18,6 +19,14 @@ export default function DestinationPage() {
     const [places, setPlaces] = useState<any[]>([]);
 
     const apiKey = import.meta.env.VITE_GEOAPIFY_KEY;
+    // Convert place name to valid image file name
+    const formatImageName = (name: string) => {
+        return name
+            ?.toLowerCase()
+            .replace(/\s+/g, "-")
+            .replace(/[^\w-]/g, "");
+    };
+
     useEffect(() => {
         if (!destination) return;
 
@@ -27,7 +36,27 @@ export default function DestinationPage() {
                     `https://api.geoapify.com/v2/places?categories=${category}&filter=circle:${destination.lon},${destination.lat},5000&limit=10&apiKey=${apiKey}`
                 );
                 const data = await response.json();
-                setPlaces(data.features);
+
+                const folder =
+                    category === "tourism.sights"
+                        ? "attractions"
+                        : category === "catering.restaurant"
+                            ? "restaurants"
+                            : "cafes";
+
+                const enriched = data.features.map((place: any) => {
+                    const placeNameForImage = place.properties.name;
+                    const imageName = formatImageName(placeNameForImage);
+
+                    const imagePath = `/images/${destination.slug}/${folder}/${imageName}.jpg`;
+
+                    return {
+                        ...place,
+                        imagePath,
+                    };
+                });
+
+                setPlaces(enriched);
             } catch (error) {
                 console.error("Error fetching places:", error);
             }
@@ -53,10 +82,18 @@ export default function DestinationPage() {
             </div>
             <div className="places-list">
                 {places.length === 0 ? (
-                    <p>Loading ...</p>
+                    <p>Loading...</p>
                 ) : (
-                    places.map((place, index) => (
-                        <div key={index} className="place-card">
+                    places.map((place) => (
+                        <div
+                            key={place.properties.place_id || place.properties.name}
+                            className="place-card"
+                        >
+                            <SafeImage
+                                src={place.imagePath}
+                                alt={place.properties.name}
+                                className="place-image"
+                            />
                             <h3>{place.properties.name}</h3>
                             <p>{place.properties.address_line1}</p>
                         </div>

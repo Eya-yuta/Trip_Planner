@@ -1,51 +1,42 @@
 .destination-page {
-    text-align: center;
-    margin-top: 60px;
-}
-
-.destination-title {
-    font-size: 48px;
-    font-weight: bold;
-    margin-bottom: 20px;
-}
-
-.categories-title {
-    font-size: 26px;
-    margin-bottom: 30px;
+    padding: 30px;
 }
 
 .categories-container {
     display: flex;
-    justify-content: space-between; /* verteilt sie über die ganze Breite */
-    align-items: center;
-    gap: 30px;
-    max-width: 900px;   /* begrenzt Breite */
-    margin: 0 auto;     /* zentriert Container */
+    gap: 15px;
+    margin-bottom: 30px;
 }
 
 .category-button {
-    flex: 1; /* ALLE Buttons bekommen gleiche Breite */
-    padding: 30px 0;
-    font-size: 20px;
-    font-weight: bold;
-    border-radius: 16px;
+    padding: 10px 18px;
+    border-radius: 8px;
     border: none;
-    background-color: #f4f4f4;
     cursor: pointer;
-    transition: 0.3s;
 }
 
-.category-button:hover {
-    background-color: #e0e0e0;
-    transform: translateY(-5px);
-}
 .places-list {
-    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
 }
 
 .place-card {
-    padding: 15px;
-    border-radius: 10px;
-    background-color: #f5f5f5;
-    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background: white;
+    border-radius: 14px;
+    padding: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.place-image {
+    width: 100%;
+    max-width: 280px; /* optional, gleiche Breite wie Karte */
+    height: 180px; /* etwas kleiner */
+    object-fit: cover;
+    border-radius: 12px;
+    background-color: #f2f2f2;
 }
