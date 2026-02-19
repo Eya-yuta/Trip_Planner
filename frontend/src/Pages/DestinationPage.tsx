@@ -2,7 +2,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import {destinations} from "../Types/Destination.ts";
 import {useEffect, useState} from "react";
 import SafeImage from "../components/SafeImage";
-
+import "../Styles/DestinationPage.css";
 export default function DestinationPage() {
     const { id } = useParams();
 
@@ -73,11 +73,11 @@ export default function DestinationPage() {
             <h2 className="categories-title">Categories:</h2>
 
             <div className="categories-container">
-                <button className="category-button" onClick={() => setCategory("tourism.sights")}>
+                <button className={`category-button ${category === "tourism.sights" ? "active" : ""}`} onClick={() => setCategory("tourism.sights")}>
                     🏛 Attractions</button>
-                <button className="category-button" onClick={() => setCategory("catering.restaurant")}>
+                <button className={`category-button ${category === "catering.restaurant" ? "active" : ""}`} onClick={() => setCategory("catering.restaurant")}>
                     🍽 Restaurants</button>
-                <button className="category-button"  onClick={() => setCategory("catering.cafe")}>
+                <button className={`category-button ${category === "catering.cafe" ? "active" : ""}`}  onClick={() => setCategory("catering.cafe")}>
                     ☕ Cafes</button>
             </div>
             <div className="places-list">
@@ -89,13 +89,14 @@ export default function DestinationPage() {
                             key={place.properties.place_id || place.properties.name}
                             className="place-card"
                         >
+                            <p>{place.properties.address_line1}</p>
+                            <div className="image-wrapper">
                             <SafeImage
                                 src={place.imagePath}
                                 alt={place.properties.name}
                                 className="place-image"
                             />
-                            <h3>{place.properties.name}</h3>
-                            <p>{place.properties.address_line1}</p>
+                            </div>
                         </div>
                     ))
                 )}
