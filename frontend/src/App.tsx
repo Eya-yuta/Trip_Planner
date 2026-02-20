@@ -8,6 +8,8 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import ProtectedRoute from "./ProtectedRoute.tsx";
 import DestinationPage from "./Pages/DestinationPage.tsx";
+import TripFormPage from "./Pages/TripFormPage.tsx";
+import TripSummaryPage from "./Pages/TripSummaryPage.tsx";
 
 function App() {
     const [user, setUser] = useState<string>("anonymousUser")
@@ -25,6 +27,8 @@ function App() {
               <Route path="/register" element={<RegisterPage/>} />
               <Route element={<ProtectedRoute user={user}/>}>
               <Route path="/hello" element={<HelloPage user={user} setUser={setUser}/>} />
+                  <Route path="/trip" element={<TripFormPage />} />
+                  <Route path="/trip-summary" element={<TripSummaryPage />} />
               </Route>
           </Routes>
   );
