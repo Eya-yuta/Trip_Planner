@@ -37,7 +37,7 @@ class TripControllerTest {
     @Test
     void getAllTripsTest() throws Exception {
         // Insert a test trip
-        Trip trip = new Trip(null, "user1", "Rome Trip", "Rome", "2026-05-01", "2026-05-05", "Colosseum visit", List.of(new Activity(1, "Vatican")));
+        Trip trip = new Trip(null, "user1", "Rome Trip", "Rome", "2026-05-01", "2026-05-05", "Colosseum visit", List.of(new Activity(1, "Vatican","imagePath")));
         repo.save(trip);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/trips").param("userId", "user1"))
@@ -49,7 +49,7 @@ class TripControllerTest {
 
     @Test
     void getTripByIdTest() throws Exception {
-        Trip trip = new Trip(null, "user1", "Berlin Trip", "Berlin", "2026-06-01", "2026-06-05", "Brandenburg Gate", List.of(new Activity(1, "Museum Island")));
+        Trip trip = new Trip(null, "user1", "Berlin Trip", "Berlin", "2026-06-01", "2026-06-05", "Brandenburg Gate", List.of(new Activity(1, "Museum Island","imagePath")));
         Trip savedTrip = repo.save(trip);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/trips/" + savedTrip.getId()))
@@ -66,7 +66,7 @@ class TripControllerTest {
         trip.setStartDate("2026-04-10");
         trip.setEndDate("2026-04-15");
         trip.setNotes("Visit Eiffel Tower");
-        trip.setActivities(List.of(new Activity(1, "Louvre Museum")));
+        trip.setActivities(List.of(new Activity(1, "Louvre Museum","imagePath")));
 
         mockMvc.perform(MockMvcRequestBuilders.post("/api/trips")
                         .contentType(MediaType.APPLICATION_JSON)//Content ist JSON
@@ -78,7 +78,7 @@ class TripControllerTest {
 
     @Test
     void updateTripTest() throws Exception {
-        Trip trip = new Trip(null, "user1", "London Trip", "London", "2026-07-01", "2026-07-05", "London Eye", List.of(new Activity(1, "British Museum")));
+        Trip trip = new Trip(null, "user1", "London Trip", "London", "2026-07-01", "2026-07-05", "London Eye", List.of(new Activity(1, "British Museum","imagePath")));
         Trip savedTrip = repo.save(trip);
 
         savedTrip.setTitle("London Updated");
@@ -94,7 +94,7 @@ class TripControllerTest {
 
     @Test
     void deleteTripTest() throws Exception {
-        Trip trip = new Trip(null, "user1", "Tokyo Trip", "Tokyo", "2026-08-01", "2026-08-05", "Shibuya", List.of(new Activity(1, "Akihabara")));
+        Trip trip = new Trip(null, "user1", "Tokyo Trip", "Tokyo", "2026-08-01", "2026-08-05", "Shibuya", List.of(new Activity(1, "Akihabara","imagePath")));
         Trip savedTrip = repo.save(trip);
 
         mockMvc.perform(MockMvcRequestBuilders.delete("/api/trips/" + savedTrip.getId()))

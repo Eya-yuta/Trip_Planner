@@ -63,6 +63,11 @@ export default function MyTripPage() {
                         <div className="activities-grid">
                             {groupedActivities[day].map((activity: any, index: number) => (
                                 <div key={index} className="activity-card">
+                                    {activity.imagePath && (
+                                        <div className="activity-image-wrapper">
+                                            <img src={activity.imagePath} alt={activity.title} className="activity-image" />
+                                        </div>
+                                    )}
                                     <h4>{activity.title}</h4>
                                     <button
                                         className="delete-activity-button"

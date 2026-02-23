@@ -107,7 +107,8 @@ export default function TripSummaryPage() {
             // ADD
             const newActivity = {
                 day: 1,
-                title: placeName
+                title: placeName,
+                imagePath: place.imagePath
             };
 
             updatedActivities = [
