@@ -1,24 +1,25 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { destinations } from "../Types/Destination";
 
 export default function TripFormPage() {
     const navigate = useNavigate();
 
-    const [destination, setDestination] = useState("");
+    const [selectedDestinationId, setSelectedDestinationId] = useState<number | "">("");
     const [fromDate, setFromDate] = useState("");
     const [toDate, setToDate] = useState("");
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
-        if (!destination || !fromDate || !toDate) {
+        if (!selectedDestinationId || !fromDate || !toDate) {
             alert("Please fill all fields!");
             return;
         }
 
         navigate("/trip-summary", {
             state: {
-                destination,
+                destinationId: selectedDestinationId,
                 fromDate,
                 toDate,
             },
@@ -31,12 +32,17 @@ export default function TripFormPage() {
 
             <form onSubmit={handleSubmit} className="trip-form">
                 <label>Destination</label>
-                <input
-                    type="text"
-                    value={destination}
-                    onChange={(e) => setDestination(e.target.value)}
-                    placeholder="Enter destination"
-                />
+                <select
+                    value={selectedDestinationId}
+                    onChange={(e) => setSelectedDestinationId(Number(e.target.value))}
+                >
+                    <option value="">Select Destination</option>
+                    {destinations.map((dest) => (
+                        <option key={dest.id} value={dest.id}>
+                            {dest.name} ({dest.country})
+                        </option>
+                    ))}
+                </select>
 
                 <label>From</label>
                 <input

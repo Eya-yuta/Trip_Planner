@@ -35,7 +35,7 @@ export default function HelloPage(props:Readonly<ProtectedRouteProps>) {
             <div className="hello-content">
                 <p className="hello-subtitle">Hello {props.user}! Your trip starts now!</p>
                 <div>
-                    <h2>Popular Destinations</h2>
+                    <h2>Popular Destinations:</h2>
 
                     <div className="destinations-grid">
                         {destinations.map((dest) => (
