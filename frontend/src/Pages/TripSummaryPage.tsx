@@ -3,6 +3,7 @@ import { destinations } from "../Types/Destination";
 import { useEffect, useState } from "react";
 import SafeImage from "../components/SafeImage";
 import "../Styles/DestinationPage.css";
+import axios from "axios";
 
 export default function TripSummaryPage() {
     const location = useLocation();
@@ -12,7 +13,8 @@ export default function TripSummaryPage() {
         return <h2>No trip data found</h2>;
     }
 
-    const { destinationId, fromDate, toDate } = location.state;
+    const { tripId,destinationId, fromDate, toDate } = location.state;
+    const [trip, setTrip] = useState<any>(null);
 
     const destination = destinations.find(
         (dest) => dest.id === Number(destinationId)
@@ -68,7 +70,41 @@ export default function TripSummaryPage() {
         fetchPlaces();
     }, [destination, category]);
 
+
+    useEffect(() => {
+        if (!tripId) return;
+
+        axios.get(`/api/trips/${tripId}`)
+            .then((res) => setTrip(res.data))
+            .catch((err) => console.error(err));
+    }, [tripId]);
     if (!destination) return <h2>Destination not found</h2>;
+    const addActivity = async (place: any) => {
+        if (!trip) return;
+
+        const newActivity = {
+            day: 1, // später kannst du Tag berechnen
+            title: place.properties.address_line1
+        };
+
+        const updatedTrip = {
+            ...trip,
+            activities: [...(trip.activities || []), newActivity]
+        };
+
+        try {
+            const response = await axios.put(
+                `/api/trips/${trip.id}`,
+                updatedTrip
+            );
+
+            setTrip(response.data);
+            alert("Activity added!");
+
+        } catch (error) {
+            console.error("Error updating trip:", error);
+        }
+    };
 
     return (
         <div className="destination-page">
@@ -116,7 +152,7 @@ export default function TripSummaryPage() {
                         >
                             <button
                                 className="add-activity-button"
-                                //onClick={() => addActivity(place)}
+                                onClick={() => addActivity(place)}
                             >
                                 ➕
                             </button>

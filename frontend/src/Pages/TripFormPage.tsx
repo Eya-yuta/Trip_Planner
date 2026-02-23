@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { destinations } from "../Types/Destination";
+import axios from "axios";
 
 export default function TripFormPage() {
     const navigate = useNavigate();
@@ -9,7 +10,7 @@ export default function TripFormPage() {
     const [fromDate, setFromDate] = useState("");
     const [toDate, setToDate] = useState("");
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
         if (!selectedDestinationId || !fromDate || !toDate) {
@@ -17,13 +18,37 @@ export default function TripFormPage() {
             return;
         }
 
-        navigate("/trip-summary", {
-            state: {
-                destinationId: selectedDestinationId,
-                fromDate,
-                toDate,
-            },
-        });
+        const selectedDestination = destinations.find(
+            (d) => d.id === selectedDestinationId
+        );
+
+        try {
+            const response = await axios.post("/api/trips", {
+                userId: "testUser", // später: eingeloggter User
+                //userId: props.user,
+                title: `Trip to ${selectedDestination?.name}`,
+                destination: selectedDestination?.name,
+                startDate: fromDate,
+                endDate: toDate,
+                notes: "",
+                activities: []
+            });
+
+            const createdTrip = response.data;
+
+            navigate("/trip-summary", {
+                state: {
+                    tripId: createdTrip.id,
+                    destinationId: selectedDestinationId,
+                    fromDate,
+                    toDate,
+                },
+            });
+
+        } catch (error) {
+            console.error("Error creating trip:", error);
+            alert("Trip could not be saved!");
+        }
     };
 
     return (

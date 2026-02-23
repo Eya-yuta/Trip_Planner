@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TripDTO {
-
+    private String userId;
     private String title;
     private String destination;
     private String startDate;

@@ -82,6 +82,7 @@ class TripServiceTest {
     void createTrip_shouldSaveTrip() {
 
         TripDTO tripDTO = new TripDTO(
+                "Test-User1",
                 "Paris Trip",
                 "Paris",
                 "2026-04-01",
@@ -106,6 +107,7 @@ class TripServiceTest {
     void updateTrip_shouldUpdateExistingTrip() {
 
         TripDTO updatedTripDTO = new TripDTO(
+                "Test-User1",
                 "Updated Title",
                 "Rome",
                 "2026-05-01",
