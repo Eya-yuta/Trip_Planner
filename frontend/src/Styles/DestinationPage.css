@@ -186,6 +186,7 @@ body {
 }
 
 .activity-card {
+    position: relative;
     background: white;
     border-radius: 16px;
     padding: 20px;
@@ -195,4 +196,21 @@ body {
 
 .activity-card:hover {
     transform: translateY(-4px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+}
+
+.delete-activity-button {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    color: #ff4d4f;
+    transition: transform 0.2s ease;
+}
+
+.delete-activity-button:hover {
+    transform: scale(1.2);
 }
