@@ -10,6 +10,7 @@ import ProtectedRoute from "./ProtectedRoute.tsx";
 import DestinationPage from "./Pages/DestinationPage.tsx";
 import TripFormPage from "./Pages/TripFormPage.tsx";
 import TripSummaryPage from "./Pages/TripSummaryPage.tsx";
+import MyTripPage from "./Pages/MyTripPage.tsx";
 
 function App() {
     const [user, setUser] = useState<string>("anonymousUser")
@@ -29,6 +30,7 @@ function App() {
               <Route path="/hello" element={<HelloPage user={user} setUser={setUser}/>} />
                   <Route path="/trip" element={<TripFormPage />} />
                   <Route path="/trip-summary" element={<TripSummaryPage />} />
+                  <Route path="/my-trip/:tripId" element={<MyTripPage />} />
               </Route>
           </Routes>
   );

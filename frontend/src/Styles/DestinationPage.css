@@ -174,3 +174,25 @@ body {
 .add-activity-button:hover {
     transform: scale(1.2);
 }
+.day-section {
+    margin-top: 30px;
+}
+
+.activities-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+    margin-top: 15px;
+}
+
+.activity-card {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    transition: all 0.2s ease;
+}
+
+.activity-card:hover {
+    transform: translateY(-4px);
+}

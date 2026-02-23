@@ -206,9 +206,9 @@ export default function TripSummaryPage() {
 
             <button
                 className="next-button"
-                onClick={() => navigate("/destination/" + destination.id)}
+                onClick={() => navigate(`/my-trip/${trip.id}`)}
             >
-                Back to Destination Page
+                View My Trip
             </button>
         </div>
     );
