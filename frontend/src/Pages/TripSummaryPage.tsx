@@ -5,6 +5,7 @@ import SafeImage from "../components/SafeImage";
 import "../Styles/DestinationPage.css";
 import axios from "axios";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
+import dayjs from "dayjs";
 
 export default function TripSummaryPage() {
     const location = useLocation();
@@ -83,7 +84,6 @@ export default function TripSummaryPage() {
 
     const isActivityAdded = (placeName: string) => {
         if (!trip || !trip.activities) return false;
-
         return trip.activities.some(
             (activity: any) => activity.title === placeName
         );
@@ -92,48 +92,40 @@ export default function TripSummaryPage() {
     const toggleActivity = async (place: any) => {
         if (!trip) return;
 
-        const placeName = place.properties.address_line1;
-
-        const alreadyAdded = isActivityAdded(placeName);
-
+        const placeName = place.properties.name;
+        const alreadyAdded = trip.activities?.some(a => a.title === placeName);
         let updatedActivities;
 
         if (alreadyAdded) {
-            // REMOVE
-            updatedActivities = trip.activities.filter(
-                (activity: any) => activity.title !== placeName
-            );
+            // entfernen
+            updatedActivities = trip.activities.filter(a => a.title !== placeName);
         } else {
-            // ADD
+            // Trip-Dauer berechnen
+            const start = dayjs(trip.startDate);
+            const end = dayjs(trip.endDate);
+            const duration = end.diff(start, "day") + 1; // z.B. 3 Tage
+
+            // Neue Activity anhängen
+            const activitiesSoFar = trip.activities || [];
+            const dayNumber = (activitiesSoFar.length % duration) + 1; // verteilt auf die Trip-Tage
+
             const newActivity = {
-                day: 1,
                 title: placeName,
-                imagePath: place.imagePath
+                imagePath: place.imagePath,
+                day: dayNumber
             };
 
-            updatedActivities = [
-                ...(trip.activities || []),
-                newActivity
-            ];
+            updatedActivities = [...activitiesSoFar, newActivity];
         }
 
         try {
-            const response = await axios.put(
-                `/api/trips/${trip.id}`,
-                {
-                    title: trip.title,
-                    destination: trip.destination,
-                    startDate: trip.startDate,
-                    endDate: trip.endDate,
-                    notes: trip.notes,
-                    activities: updatedActivities
-                }
-            );
-
+            const response = await axios.put(`/api/trips/${trip.id}`, {
+                ...trip,
+                activities: updatedActivities
+            });
             setTrip(response.data);
-
-        } catch (error) {
-            console.error("Error updating trip:", error);
+        } catch (err) {
+            console.error(err);
         }
     };
 
@@ -185,7 +177,7 @@ export default function TripSummaryPage() {
                                 className="add-activity-button"
                                 onClick={() => toggleActivity(place)}
                             >
-                                {isActivityAdded(place.properties.address_line1) ? (
+                                {isActivityAdded(place.properties.name) ? (
                                     <FaHeart size={20} color="red" />
                                 ) : (
                                     <FaRegHeart size={20} />

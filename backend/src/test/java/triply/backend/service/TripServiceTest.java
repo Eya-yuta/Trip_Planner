@@ -39,7 +39,7 @@ class TripServiceTest {
                 "2026-04-10",
                 "2026-04-15",
                 "Visit Eiffel Tower",
-                List.of(new Activity(1, "Louvre Museum"))
+                List.of(new Activity(1, "Louvre Museum","imagePath"))
         );
     }
     @Test
@@ -88,7 +88,7 @@ class TripServiceTest {
                 "2026-04-01",
                 "2026-04-07",
                 "Spring vacation",
-                List.of(new Activity(1, "Eiffel Tower"))
+                List.of(new Activity(1, "Eiffel Tower","imagePath"))
         );
 
         when(tripRepo.save(any(Trip.class)))
@@ -113,7 +113,7 @@ class TripServiceTest {
                 "2026-05-01",
                 "2026-05-05",
                 "Updated notes",
-                List.of(new Activity(1, "Colosseum"))
+                List.of(new Activity(1, "Colosseum","imagePath"))
         );
 
         // Mock existing trip
