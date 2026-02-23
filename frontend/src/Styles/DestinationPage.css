@@ -164,3 +164,13 @@ body {
     color: white;
     transform: scale(1.1);
 }
+.add-activity-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.add-activity-button:hover {
+    transform: scale(1.2);
+}

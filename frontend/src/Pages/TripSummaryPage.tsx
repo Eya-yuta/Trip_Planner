@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import SafeImage from "../components/SafeImage";
 import "../Styles/DestinationPage.css";
 import axios from "axios";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 
 export default function TripSummaryPage() {
     const location = useLocation();
@@ -79,27 +80,56 @@ export default function TripSummaryPage() {
             .catch((err) => console.error(err));
     }, [tripId]);
     if (!destination) return <h2>Destination not found</h2>;
-    const addActivity = async (place: any) => {
+
+    const isActivityAdded = (placeName: string) => {
+        if (!trip || !trip.activities) return false;
+
+        return trip.activities.some(
+            (activity: any) => activity.title === placeName
+        );
+    };
+
+    const toggleActivity = async (place: any) => {
         if (!trip) return;
 
-        const newActivity = {
-            day: 1, // später kannst du Tag berechnen
-            title: place.properties.address_line1
-        };
+        const placeName = place.properties.address_line1;
 
-        const updatedTrip = {
-            ...trip,
-            activities: [...(trip.activities || []), newActivity]
-        };
+        const alreadyAdded = isActivityAdded(placeName);
+
+        let updatedActivities;
+
+        if (alreadyAdded) {
+            // REMOVE
+            updatedActivities = trip.activities.filter(
+                (activity: any) => activity.title !== placeName
+            );
+        } else {
+            // ADD
+            const newActivity = {
+                day: 1,
+                title: placeName
+            };
+
+            updatedActivities = [
+                ...(trip.activities || []),
+                newActivity
+            ];
+        }
 
         try {
             const response = await axios.put(
                 `/api/trips/${trip.id}`,
-                updatedTrip
+                {
+                    title: trip.title,
+                    destination: trip.destination,
+                    startDate: trip.startDate,
+                    endDate: trip.endDate,
+                    notes: trip.notes,
+                    activities: updatedActivities
+                }
             );
 
             setTrip(response.data);
-            alert("Activity added!");
 
         } catch (error) {
             console.error("Error updating trip:", error);
@@ -152,9 +182,13 @@ export default function TripSummaryPage() {
                         >
                             <button
                                 className="add-activity-button"
-                                onClick={() => addActivity(place)}
+                                onClick={() => toggleActivity(place)}
                             >
-                                ➕
+                                {isActivityAdded(place.properties.address_line1) ? (
+                                    <FaHeart size={20} color="red" />
+                                ) : (
+                                    <FaRegHeart size={20} />
+                                )}
                             </button>
                             <p>{place.properties.address_line1}</p>
 
