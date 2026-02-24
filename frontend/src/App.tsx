@@ -11,6 +11,7 @@ import DestinationPage from "./Pages/DestinationPage.tsx";
 import TripFormPage from "./Pages/TripFormPage.tsx";
 import TripSummaryPage from "./Pages/TripSummaryPage.tsx";
 import MyTripPage from "./Pages/MyTripPage.tsx";
+import MyTripsOverviewPage from "./Pages/MyTripsOverviewPage.tsx";
 
 function App() {
     const [user, setUser] = useState<string>("anonymousUser")
@@ -31,6 +32,7 @@ function App() {
                   <Route path="/trip" element={<TripFormPage />} />
                   <Route path="/trip-summary" element={<TripSummaryPage />} />
                   <Route path="/my-trip/:tripId" element={<MyTripPage />} />
+                  <Route path="/myTrips" element={<MyTripsOverviewPage user={user} />} />
               </Route>
           </Routes>
   );
