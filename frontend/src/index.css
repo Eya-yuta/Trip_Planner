@@ -122,7 +122,7 @@ h2{
     text-decoration: underline;
 }
 .register-page .login-form {
-    margin-top: 4px; /* smaller distance hier */
+    margin-top: 30px; /* smaller distance hier */
 }
 .error-text {
     margin-top: 1rem;

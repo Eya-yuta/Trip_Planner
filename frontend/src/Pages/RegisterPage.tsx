@@ -2,6 +2,7 @@ import {useNavigate} from "react-router-dom";
 import {type SubmitEvent,useState} from "react";
 import axios from "axios";
 import "../Styles/RegisterPage.css";
+import logo from "../assets/logo.png";
 
 export default function RegisterPage() {
     const [firstName, setFirstName] = useState<string>("")
@@ -40,8 +41,8 @@ export default function RegisterPage() {
 
     return (
         <div className="app-container register-page">
-            <h1 className="app-title">Triply</h1>
-            <p className="app-subtitle">Glad you’re here! Create your account<br />
+            <img src={logo} alt="Triply Logo" className="logo-img" />
+            <p className="app-subtitle"  style={{ marginTop: "40px" }}>Glad you’re here! Create your account<br />
                 and start your journey!</p>
 
             <form className="login-form" onSubmit={submitRegister} noValidate>
