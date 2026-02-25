@@ -15,7 +15,7 @@ import MyTripsOverviewPage from "./Pages/MyTripsOverviewPage.tsx";
 import Layout from "./components/Layout.tsx";
 
 function App() {
-    const [user, setUser] = useState<string>("anonymousUser")
+    const [user, setUser] = useState<string>("User")
     useEffect(() => {
         axios.get("/api/user")
             .then((r) => setUser(r.data))
@@ -25,7 +25,10 @@ function App() {
 
           <Routes>
               <Route path="/" element={<HomePage/>} />
-              <Route path="/destination/:id" element={<DestinationPage />} />
+
+              <Route element={<Layout user={user} setUser={setUser} />}>
+                  <Route path="/destination/:id" element={<DestinationPage/>} />
+              </Route>
               <Route path="/login" element={<LoginPage setUser={setUser}/>} />
               <Route path="/register" element={<RegisterPage/>} />
               <Route element={<ProtectedRoute user={user}/>}>

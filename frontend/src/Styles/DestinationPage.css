@@ -115,25 +115,7 @@ body {
     color: #555;
 }
 
-/* Next button */
-.next-button {
-    display: block;
-    margin: 0 auto 3rem auto;
-    padding: 0.75rem 2rem;
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #fff;
-    background-color: #4f46e5;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-}
 
-.next-button:hover {
-    background-color: #3b36c0;
-    transform: translateY(-2px);
-}
 .category-button.active {
     background: linear-gradient(135deg, #fffde7, #fff9c4);
     color: #8a6d1f;

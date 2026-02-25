@@ -12,7 +12,6 @@
     width: 100%;
 }
 
-/* Links allgemein */
 .navbar a {
     text-decoration: none;
     color: #2c2c2c;
@@ -26,26 +25,70 @@
 }
 
 .logo {
-
-    letter-spacing: 0.5px;
-    font-family: 'Poppins', sans-serif;
-    font-size: 4rem;
-    font-weight: bold;
-    text-align: center;
-    color: #1d4ed8 !important; /* blau */
+    display: flex;
+    align-items: center;
     margin: 0;
+    text-decoration: none;
 }
-.logo:hover {
-    color: #3b36c0 !important; /* modernes Blau */
+.logo-img:hover {
+    transform: scale(1.05);
+    transition: transform 0.2s ease;
+}
+.logo-img {
+    height: 90px;
+    width: auto;
+    display: block;
+    object-fit: contain;
 }
 
-/* Center Bereich */
 .navbar-center {
     display: flex;
     align-items: center;
+    flex: 1;
+    justify-content: center;
+    margin: 0 20px;
 }
 
-/* User Bereich */
+.navbar-search {
+    width: 100%;
+    max-width: 400px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    font-size: 1rem;
+    outline: none;
+    transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+.navbar-search:focus {
+    border-color: #22c55e;
+    box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2);
+}
+.search-dropdown {
+    position: absolute;
+    top: 100%; /* direkt unter dem Input */
+    left: 0;
+    width: 100%;
+    max-height: 250px;
+    overflow-y: auto;
+    background: white;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    margin-top: 5px;
+    list-style: none;
+    padding: 0;
+    z-index: 1001;
+}
+
+.search-dropdown li {
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.search-dropdown li:hover {
+    background: #f0fdf4; /* leichtes Grün beim Hover */
+}
 .navbar-right {
     display: flex;
     align-items: center;
@@ -54,17 +97,20 @@
 .user-text {
     margin-right: 15px;
     font-weight: 500;
+    font-size: 1.2rem;
     color: #444;
 }
 
-/* Logout Button */
 .logout-btn {
     padding: 12px 24px;
-    font-size: 1rem;
-    cursor: pointer;
-    white-space: nowrap;
+    background: #f9f9f9;
+    color:black;
     border-radius: 8px;
+    font-size: 1rem;
+    text-decoration: none;
     font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.1s ease;
 }
 
 .logout-btn:hover {
@@ -72,19 +118,20 @@
     transform: translateY(-1px);
 }
 
-/* Navigation Buttons */
 .nav-button {
-    padding: 12px 24px;
-    background: #2563eb;
+    padding: 15px 29px;
+    background: #22c55e;
     color: white !important;
     border-radius: 8px;
     text-decoration: none;
     font-weight: 500;
+    cursor: pointer;
     transition: background 0.2s ease, transform 0.1s ease;
+    border: none;
 }
 
 .nav-button:hover {
-    background: #1d4ed8;
+    background: #16a34a;
     transform: translateY(-1px);
 }
 
@@ -98,5 +145,12 @@
     .navbar-center {
         margin: 10px 0;
         flex-wrap: wrap;
+    }
+    .logo-img {
+        height: 50px;
+    }
+    .navbar-search {
+        max-width: 100%;
+        margin: 10px 0;
     }
 }

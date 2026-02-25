@@ -1,6 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../Styles/Navbar.css";
+import logo from "../assets/logo.png";
+import {useState} from "react";
+import {destinations} from "../Types/Destination.ts";
 
 type NavbarProps = {
     user: string;
@@ -8,33 +11,60 @@ type NavbarProps = {
 };
 
 export default function Navbar({ user, setUser }: Readonly<NavbarProps>) {
+
     const navigate = useNavigate();
 
     const logout = () => {
         axios.get("/api/user/logout")
             .then(() => {
-                setUser("anonymousUser");
-                navigate("/trip");
+                setUser("User");
+                navigate("/");
             })
             .catch(() => alert("Logout failed!"));
     };
+
+    const [searchQuery, setSearchQuery] = useState("");
+    const filteredDestinations = destinations.filter(dest =>
+        dest.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
     return (
         <nav className="navbar">
             <div className="navbar-left">
                 <Link to="/" className="logo">
-                    Triply
+                    <img src={logo} alt="Triply Logo" className="logo-img" />
                 </Link>
             </div>
-
             <div className="navbar-center">
+                <span>🔍</span>
+                <input
+                    type="text"
+                    placeholder=" Enter your destination..."
+                    className="navbar-search"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                />
+                {searchQuery && filteredDestinations.length > 0 && (
+                    <ul className="search-dropdown">
+                        {filteredDestinations.map(dest => (
+                            <li
+                                key={dest.id}
+                                onClick={() => {
+                                    navigate(`/destination/${dest.id}`);
+                                    setSearchQuery("");
+                                }}
+                            >
+                                {dest.name}, {dest.country}
+                            </li>
+                        ))}
+                    </ul>
+                )}
+            </div>
+            <div className="navbar-right">
+                <span className="user-text">Hello {user} !</span>
                 <Link to="/myTrips" className="nav-button">
                     My Trips
                 </Link>
-            </div>
-
-            <div className="navbar-right">
-                <span className="user-text">Hello {user} !</span>
                 <button onClick={logout} className="logout-btn">
                     👤 Logout
                 </button>
