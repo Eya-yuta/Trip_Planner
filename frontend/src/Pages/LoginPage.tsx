@@ -2,6 +2,7 @@ import {useNavigate} from "react-router-dom";
 import {type SubmitEvent, useState} from "react";
 import axios from "axios";
 import "../Styles/LoginPage.css";
+import logo from "../assets/logo.png";
 
 type LoginPageProps= {
     setUser:(username:string) => void
@@ -39,7 +40,7 @@ export default function LoginPage(props:Readonly<LoginPageProps>) {
     }
     return (
         <div className="app-container">
-            <h1 className="app-title">Triply</h1>
+            <img src={logo} alt="Triply Logo" className="logo-img" />
             <p className="app-subtitle">Let’s get started!</p>
 
             <form className="login-form" onSubmit={submitLogin} noValidate>
