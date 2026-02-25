@@ -28,8 +28,9 @@ export default function Navbar({ user, setUser }: Readonly<NavbarProps>) {
             </div>
 
             <div className="navbar-center">
-                <Link to="/my-trips">📊 My Trips</Link>
-                <Link to="/trip">+ New Trip</Link>
+                <Link to="/myTrips" className="nav-button">
+                    My Trips
+                </Link>
             </div>
 
             <div className="navbar-right">

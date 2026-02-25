@@ -34,7 +34,7 @@ export default function HelloPage(props:Readonly<ProtectedRouteProps>) {
             <h1 className="hello-title">Triply</h1>
                 <div className="header-buttons">
                     <button className="my-trips-button" onClick={goMyTrips}>
-                        📊 My Trips
+                        My Trips
                     </button>
             <button className="logout-button" onClick={logout}>
                 Logout
