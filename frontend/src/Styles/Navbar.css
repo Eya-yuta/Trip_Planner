@@ -63,18 +63,18 @@
     font-size: 1rem;
     cursor: pointer;
     white-space: nowrap;
-    border-radius: 6px;
+    border-radius: 8px;
     font-weight: 500;
 }
 
 .logout-btn:hover {
-    background: #dc2626;
+    background: #cccccc;
     transform: translateY(-1px);
 }
 
 /* Navigation Buttons */
 .nav-button {
-    padding: 8px 16px;
+    padding: 12px 24px;
     background: #2563eb;
     color: white !important;
     border-radius: 8px;
@@ -86,4 +86,17 @@
 .nav-button:hover {
     background: #1d4ed8;
     transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        padding: 12px 20px;
+        align-items: flex-start;
+    }
+
+    .navbar-center {
+        margin: 10px 0;
+        flex-wrap: wrap;
+    }
 }

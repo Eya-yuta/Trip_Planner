@@ -1,5 +1,4 @@
 import { useNavigate} from "react-router-dom";
-import axios from "axios";
 import "../Styles/HelloPage.css";
 import {destinations} from "../Types/Destination.ts";
 
@@ -9,40 +8,14 @@ type ProtectedRouteProps = {
 }
 export default function HelloPage(props:Readonly<ProtectedRouteProps>) {
     const navigate = useNavigate();
-    function logout() {
-        axios.get("/api/user/logout")
-            .then(() => {
-                props.setUser("anonymousUser");
-                navigate("/trip");
-            })
-            .catch(() => {
-                alert("Logout failed!");
-            });
-    }
-
     const goNextPage = () => {
         navigate("/trip");
     };
-    const goMyTrips = () => {
-        navigate("/myTrips");
-    };
-
 
     return (
         <div className="hello-container">
-            <div className="hello-header">
-            <h1 className="hello-title">Triply</h1>
-                <div className="header-buttons">
-                    <button className="my-trips-button" onClick={goMyTrips}>
-                        My Trips
-                    </button>
-            <button className="logout-button" onClick={logout}>
-                Logout
-            </button>
-            </div>
-                </div>
             <div className="hello-content">
-                <p className="hello-subtitle">Hello {props.user}! Your trip starts now!</p>
+                <p className="hello-subtitle">{props.user}, your trip starts now!</p>
                 <div>
                     <h2>Popular Destinations:</h2>
 

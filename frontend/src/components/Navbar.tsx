@@ -34,9 +34,9 @@ export default function Navbar({ user, setUser }: Readonly<NavbarProps>) {
             </div>
 
             <div className="navbar-right">
-                <span className="user-text">Hello {user}</span>
+                <span className="user-text">Hello {user} !</span>
                 <button onClick={logout} className="logout-btn">
-                    Logout
+                    👤 Logout
                 </button>
             </div>
         </nav>

@@ -1,10 +1,8 @@
 .hello-container {
-    height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;  /* keep items at top */
     align-items: flex-start;      /* align left, not center */
-    padding-top: 100px;           /* distance from top / header */
+    padding-top: 10px;           /* distance from top / header */
     padding-left: 20px;           /* align with header padding */
     padding-right: 20px;          /* optional right padding */
 }

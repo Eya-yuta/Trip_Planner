@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "../Styles/DestinationPage.css";
-import Navbar from "../components/Navbar.tsx";
-
 
 type MyTripsOverviewPageProps = {
     user: string;
@@ -11,7 +9,7 @@ type MyTripsOverviewPageProps = {
 }
 
 
-export default function MyTripsOverviewPage({ user, setUser }: Readonly<MyTripsOverviewPageProps>) {
+export default function MyTripsOverviewPage({ user}: Readonly<MyTripsOverviewPageProps>) {
     const [trips, setTrips] = useState<any[]>([]);
     const navigate = useNavigate();
 
