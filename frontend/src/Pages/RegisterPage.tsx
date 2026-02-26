@@ -1,4 +1,4 @@
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {type SubmitEvent,useState} from "react";
 import axios from "axios";
 import "../Styles/RegisterPage.css";
@@ -41,7 +41,9 @@ export default function RegisterPage() {
 
     return (
         <div className="app-container register-page">
-            <img src={logo} alt="Triply Logo" className="logo-img" />
+            <Link to="/" className="logo">
+                <img src={logo} alt="Triply Logo" className="logo-img" />
+            </Link>
             <p className="app-subtitle"  style={{ marginTop: "40px" }}>Glad you’re here! Create your account<br />
                 and start your journey!</p>
 

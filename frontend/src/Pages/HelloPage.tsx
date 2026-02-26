@@ -13,9 +13,14 @@ export default function HelloPage(props:Readonly<ProtectedRouteProps>) {
     };
 
     return (
+        <>
+            <button className="newTrip-button" onClick={goNextPage}>
+                +  New Trip
+            </button>
         <div className="hello-container">
             <div className="hello-content">
-                <p className="hello-subtitle">{props.user}, your trip starts now!</p>
+                <p className="hello-subtitle">Your trip starts now!</p>
+
                 <div>
                     <h2>Popular Destinations:</h2>
 
@@ -33,11 +38,10 @@ export default function HelloPage(props:Readonly<ProtectedRouteProps>) {
                         ))}
                     </div>
                 </div>
-            <button className="next-button" onClick={goNextPage}>
-                +  New Trip
-            </button>
+
             </div>
 
         </div>
+        </>
     );
 }

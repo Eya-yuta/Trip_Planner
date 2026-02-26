@@ -1,4 +1,4 @@
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {type SubmitEvent, useState} from "react";
 import axios from "axios";
 import "../Styles/LoginPage.css";
@@ -40,7 +40,9 @@ export default function LoginPage(props:Readonly<LoginPageProps>) {
     }
     return (
         <div className="app-container">
-            <img src={logo} alt="Triply Logo" className="logo-img" />
+            <Link to="/" className="logo">
+                <img src={logo} alt="Triply Logo" className="logo-img" />
+            </Link>
             <p className="app-subtitle">Let’s get started!</p>
 
             <form className="login-form" onSubmit={submitLogin} noValidate>

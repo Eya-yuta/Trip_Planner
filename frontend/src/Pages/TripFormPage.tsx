@@ -2,10 +2,12 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { destinations } from "../Types/Destination";
 import axios from "axios";
-
+import "../Styles/TripFormPage.css";
 export default function TripFormPage() {
     const navigate = useNavigate();
 
+    const [tripTitle, setTripTitle] = useState("");
+    const [notes, setNotes] = useState("");
     const [selectedDestinationId, setSelectedDestinationId] = useState<number | "">("");
     const [fromDate, setFromDate] = useState("");
     const [toDate, setToDate] = useState("");
@@ -24,13 +26,13 @@ export default function TripFormPage() {
 
         try {
             const response = await axios.post("/api/trips", {
-                userId: "testUser", // später: eingeloggter User
+                userId: "testUser",
                 //userId: props.user,
-                title: `Trip to ${selectedDestination?.name}`,
+                title: tripTitle || `Trip to ${selectedDestination?.name}`,
                 destination: selectedDestination?.name,
                 startDate: fromDate,
                 endDate: toDate,
-                notes: "",
+                notes: notes,
                 activities: []
             });
 
@@ -56,6 +58,13 @@ export default function TripFormPage() {
             <h1>Plan Your Trip</h1>
 
             <form onSubmit={handleSubmit} className="trip-form">
+                <label>Trip Title</label>
+                <input
+                    type="text"
+                    value={tripTitle}
+                    onChange={(e) => setTripTitle(e.target.value)}
+                    placeholder="Enter a title for your trip"
+                />
                 <label>Destination</label>
                 <select
                     value={selectedDestinationId}
@@ -82,7 +91,13 @@ export default function TripFormPage() {
                     value={toDate}
                     onChange={(e) => setToDate(e.target.value)}
                 />
-
+                <label>Notes</label>
+                <textarea
+                    value={notes}
+                    onChange={(e) => setNotes(e.target.value)}
+                    placeholder="Add your notes here..."
+                    rows={4}
+                />
                 <button type="submit">Confirm Trip</button>
             </form>
         </div>

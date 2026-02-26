@@ -6,7 +6,7 @@ import RegisterPage from "./Pages/RegisterPage.tsx";
 import HelloPage from "./Pages/HelloPage.tsx";
 import {useEffect, useState} from "react";
 import axios from "axios";
-import ProtectedRoute from "./ProtectedRoute.tsx";
+import ProtectedRoute from "./components/ProtectedRoute.tsx";
 import DestinationPage from "./Pages/DestinationPage.tsx";
 import TripFormPage from "./Pages/TripFormPage.tsx";
 import TripSummaryPage from "./Pages/TripSummaryPage.tsx";
@@ -15,7 +15,7 @@ import MyTripsOverviewPage from "./Pages/MyTripsOverviewPage.tsx";
 import Layout from "./components/Layout.tsx";
 
 function App() {
-    const [user, setUser] = useState<string>("User")
+    const [user, setUser] = useState<string>("anonymousUser")
     useEffect(() => {
         axios.get("/api/user")
             .then((r) => setUser(r.data))

@@ -22,7 +22,7 @@ export default function Navbar({ user, setUser }: Readonly<NavbarProps>) {
             })
             .catch(() => alert("Logout failed!"));
     };
-
+    const isLoggedIn = user && user !== "anonymousUser";
     const [searchQuery, setSearchQuery] = useState("");
     const filteredDestinations = destinations.filter(dest =>
         dest.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -31,43 +31,59 @@ export default function Navbar({ user, setUser }: Readonly<NavbarProps>) {
     return (
         <nav className="navbar">
             <div className="navbar-left">
-                <Link to="/" className="logo">
+                <Link  to={isLoggedIn ? "/hello" : "/"}  className="logo">
                     <img src={logo} alt="Triply Logo" className="logo-img" />
                 </Link>
             </div>
-            <div className="navbar-center">
-                <span>🔍</span>
-                <input
-                    type="text"
-                    placeholder=" Enter your destination..."
-                    className="navbar-search"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                />
-                {searchQuery && filteredDestinations.length > 0 && (
-                    <ul className="search-dropdown">
-                        {filteredDestinations.map(dest => (
-                            <li
-                                key={dest.id}
-                                onClick={() => {
-                                    navigate(`/destination/${dest.id}`);
-                                    setSearchQuery("");
-                                }}
-                            >
-                                {dest.name}, {dest.country}
-                            </li>
-                        ))}
-                    </ul>
-                )}
-            </div>
+
+            {isLoggedIn && (
+                <div className="navbar-center">
+                    <span>🔍</span>
+                    <input
+                        type="text"
+                        placeholder=" Enter your destination..."
+                        className="navbar-search"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+
+                    {searchQuery && filteredDestinations.length > 0 && (
+                        <ul className="search-dropdown">
+                            {filteredDestinations.map(dest => (
+                                <li
+                                    key={dest.id}
+                                    onClick={() => {
+                                        navigate(`/destination/${dest.id}`);
+                                        setSearchQuery("");
+                                    }}
+                                >
+                                    {dest.name}, {dest.country}
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                </div>
+            )}
+
             <div className="navbar-right">
-                <span className="user-text">Hello {user} !</span>
-                <Link to="/myTrips" className="nav-button">
-                    My Trips
-                </Link>
-                <button onClick={logout} className="logout-btn">
-                    👤 Logout
-                </button>
+                {isLoggedIn ? (
+                    <>
+                        <span className="user-text">Hello {user}!</span>
+                        <Link to="/myTrips" className="nav-button">
+                            My Trips
+                        </Link>
+                        <button onClick={logout} className="logout-btn">
+                            👤 Logout
+                        </button>
+                    </>
+                ) : (
+                    <button
+                        onClick={() => navigate("/login")}
+                        className="logout-btn"
+                    >
+                        👤 Login
+                    </button>
+                )}
             </div>
         </nav>
     );
