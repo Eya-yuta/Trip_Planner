@@ -17,7 +17,7 @@ export default function Navbar({ user, setUser }: Readonly<NavbarProps>) {
     const logout = () => {
         axios.get("/api/user/logout")
             .then(() => {
-                setUser("User");
+                setUser("anonymousUser");
                 navigate("/");
             })
             .catch(() => alert("Logout failed!"));

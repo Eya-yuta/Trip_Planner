@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import "../Styles/DestinationPage.css";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
+import {destinations} from "../Types/Destination.ts";
 
 
 export default function MyTripPage() {
     const { tripId } = useParams();
     const [trip, setTrip] = useState<any>(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         axios.get(`/api/trips/${tripId}`)
@@ -17,7 +19,7 @@ export default function MyTripPage() {
 
     if (!trip) return <p>Loading trip...</p>;
 
-    // Activities nach Tagen gruppieren
+    // Activities grouped by day
     const groupedActivities = trip.activities?.reduce((acc: any, activity: any) => {
         const day = activity.day;
         if (!acc[day]) {
@@ -91,11 +93,25 @@ export default function MyTripPage() {
         const year = date.getFullYear();
         return `${day}.${month}.${year}`;
     }
+    const destinationObj = destinations.find(d => d.name === trip.destination);
+    const handleAddMorePlaces = () => {
+        if (!destinationObj) {
+            alert("Destination not found!");
+            return;
+        }
+        navigate(`/destination/${destinationObj.id}?tripId=${trip.id}`);
+    };
     return (
         <div style={{ padding: "40px" }}>
             <h1>{trip.title}</h1>
             <p className="trip-dates">📅 {formatDate(trip.startDate)} → {formatDate(trip.endDate)}</p>
             {trip.notes && <p className="trip-notes">📝 {trip.notes}</p>}
+            <button
+                className="newTrip-button"
+                onClick={handleAddMorePlaces}
+            >
+                + Add More Places
+            </button>
 
             <DragDropContext onDragEnd={onDragEnd}>
                 {groupedActivities && Object.keys(groupedActivities).map((day) => (
