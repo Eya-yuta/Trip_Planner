@@ -84,10 +84,18 @@ export default function MyTripPage() {
             console.error(err);
         }
     };
+    function formatDate(dateString: string) {
+        const date = new Date(dateString);
+        const day = String(date.getDate()).padStart(2, "0");
+        const month = String(date.getMonth() + 1).padStart(2, "0"); // Monate beginnen bei 0
+        const year = date.getFullYear();
+        return `${day}.${month}.${year}`;
+    }
     return (
         <div style={{ padding: "40px" }}>
             <h1>{trip.title}</h1>
-            <p>📅 {trip.startDate} → {trip.endDate}</p>
+            <p className="trip-dates">📅 {formatDate(trip.startDate)} → {formatDate(trip.endDate)}</p>
+            {trip.notes && <p className="trip-notes">📝 {trip.notes}</p>}
 
             <DragDropContext onDragEnd={onDragEnd}>
                 {groupedActivities && Object.keys(groupedActivities).map((day) => (

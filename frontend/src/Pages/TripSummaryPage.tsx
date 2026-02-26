@@ -2,10 +2,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { destinations } from "../Types/Destination";
 import { useEffect, useState } from "react";
 import SafeImage from "../components/SafeImage";
-import "../Styles/DestinationPage.css";
 import axios from "axios";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import dayjs from "dayjs";
+import "../Styles/DestinationPage.css";
 
 export default function TripSummaryPage() {
     const location = useLocation();
@@ -15,8 +15,8 @@ export default function TripSummaryPage() {
         return <h2>No trip data found</h2>;
     }
 
-    const { tripId,destinationId, fromDate, toDate } = location.state;
-    const [trip, setTrip] = useState<any>(null);
+    const { tripId, destinationId, trip: initialTrip } = location.state;
+    const [trip, setTrip] = useState<any>(initialTrip || null);
 
     const destination = destinations.find(
         (dest) => dest.id === Number(destinationId)
@@ -34,6 +34,7 @@ export default function TripSummaryPage() {
             .replace(/[^\w-]/g, "");
     };
 
+    // Fetch places from Geoapify
     useEffect(() => {
         if (!destination) return;
 
@@ -52,18 +53,18 @@ export default function TripSummaryPage() {
                             ? "restaurants"
                             : "cafes";
 
-                const enriched = data.features.map((place: any) => {
-                    const imageName = formatImageName(place.properties.name);
-
-                    const imagePath = `/images/${destination.slug}/${folder}/${imageName}.jpg`;
-
-                    return {
-                        ...place,
-                        imagePath,
-                    };
+                // Remove duplicates by place_id or name
+                const uniquePlacesMap = new Map();
+                data.features.forEach((place: any) => {
+                    const key = place.properties.place_id || place.properties.name;
+                    if (!uniquePlacesMap.has(key)) {
+                        const imageName = formatImageName(place.properties.name);
+                        const imagePath = `/images/${destination.slug}/${folder}/${imageName}.jpg`;
+                        uniquePlacesMap.set(key, { ...place, imagePath });
+                    }
                 });
 
-                setPlaces(enriched);
+                setPlaces(Array.from(uniquePlacesMap.values()));
             } catch (error) {
                 console.error("Error fetching places:", error);
             }
@@ -72,21 +73,21 @@ export default function TripSummaryPage() {
         fetchPlaces();
     }, [destination, category]);
 
-
+    // Fetch trip from API if not passed
     useEffect(() => {
-        if (!tripId) return;
+        if (!trip && tripId) {
+            axios.get(`/api/trips/${tripId}`)
+                .then((res) => setTrip(res.data))
+                .catch((err) => console.error(err));
+        }
+    }, [tripId, trip]);
 
-        axios.get(`/api/trips/${tripId}`)
-            .then((res) => setTrip(res.data))
-            .catch((err) => console.error(err));
-    }, [tripId]);
     if (!destination) return <h2>Destination not found</h2>;
+    if (!trip) return <p style={{ textAlign: "center", marginTop: "50px" }}>Loading trip data...</p>;
 
     const isActivityAdded = (placeName: string) => {
         if (!trip || !trip.activities) return false;
-        return trip.activities.some(
-            (activity: any) => activity.title === placeName
-        );
+        return trip.activities.some((activity: any) => activity.title === placeName);
     };
 
     const toggleActivity = async (place: any) => {
@@ -97,17 +98,14 @@ export default function TripSummaryPage() {
         let updatedActivities;
 
         if (alreadyAdded) {
-            // entfernen
             updatedActivities = trip.activities.filter(a => a.title !== placeName);
         } else {
-            // Trip-Dauer berechnen
             const start = dayjs(trip.startDate);
             const end = dayjs(trip.endDate);
-            const duration = end.diff(start, "day") + 1; // z.B. 3 Tage
+            const duration = end.diff(start, "day") + 1;
 
-            // Neue Activity anhängen
             const activitiesSoFar = trip.activities || [];
-            const dayNumber = (activitiesSoFar.length % duration) + 1; // verteilt auf die Trip-Tage
+            const dayNumber = (activitiesSoFar.length % duration) + 1;
 
             const newActivity = {
                 title: placeName,
@@ -128,21 +126,22 @@ export default function TripSummaryPage() {
             console.error(err);
         }
     };
-    function formatDate(dateString: string) {
+
+    const formatDate = (dateString: string) => {
         const date = new Date(dateString);
         const day = String(date.getDate()).padStart(2, "0");
-        const month = String(date.getMonth() + 1).padStart(2, "0"); // Monate beginnen bei 0
+        const month = String(date.getMonth() + 1).padStart(2, "0");
         const year = date.getFullYear();
         return `${day}.${month}.${year}`;
-    }
+    };
 
     return (
         <div className="destination-page">
             <h1 className="destination-title">
-                {trip.title && trip.title.trim() !== ""
-                    ? trip.title
-                    : `Trip to ${destination.name}`}
+                {trip.title && trip.title.trim() !== "" ? trip.title : `Trip to ${destination.name}`}
             </h1>
+
+            {trip.notes && <p style={{ textAlign: "center", marginBottom: "20px" }}>{trip.notes}</p>}
 
             <p style={{ textAlign: "center", marginBottom: "20px" }}>
                 📅 {formatDate(trip.startDate)} → {formatDate(trip.endDate)}
@@ -157,14 +156,12 @@ export default function TripSummaryPage() {
                 >
                     🏛 Attractions
                 </button>
-
                 <button
                     className={`category-button ${category === "catering.restaurant" ? "active" : ""}`}
                     onClick={() => setCategory("catering.restaurant")}
                 >
                     🍽 Restaurants
                 </button>
-
                 <button
                     className={`category-button ${category === "catering.cafe" ? "active" : ""}`}
                     onClick={() => setCategory("catering.cafe")}
@@ -175,7 +172,7 @@ export default function TripSummaryPage() {
 
             <div className="places-list">
                 {places.length === 0 ? (
-                    <p>Loading...</p>
+                    <p>Loading places...</p>
                 ) : (
                     places.map((place) => (
                         <div
@@ -193,7 +190,6 @@ export default function TripSummaryPage() {
                                 )}
                             </button>
                             <p>{place.properties.address_line1}</p>
-
                             <div className="image-wrapper">
                                 <SafeImage
                                     src={place.imagePath}
@@ -207,7 +203,7 @@ export default function TripSummaryPage() {
             </div>
 
             <button
-                className="next-button"
+                className="newTrip-button"
                 onClick={() => navigate(`/my-trip/${trip.id}`)}
             >
                 View My Trip
