@@ -128,15 +128,24 @@ export default function TripSummaryPage() {
             console.error(err);
         }
     };
+    function formatDate(dateString: string) {
+        const date = new Date(dateString);
+        const day = String(date.getDate()).padStart(2, "0");
+        const month = String(date.getMonth() + 1).padStart(2, "0"); // Monate beginnen bei 0
+        const year = date.getFullYear();
+        return `${day}.${month}.${year}`;
+    }
 
     return (
         <div className="destination-page">
             <h1 className="destination-title">
-                Your Trip to {destination.name}
+                {trip.title && trip.title.trim() !== ""
+                    ? trip.title
+                    : `Trip to ${destination.name}`}
             </h1>
 
             <p style={{ textAlign: "center", marginBottom: "20px" }}>
-                📅 {fromDate} → {toDate}
+                📅 {formatDate(trip.startDate)} → {formatDate(trip.endDate)}
             </p>
 
             <h2 className="categories-title">Categories:</h2>

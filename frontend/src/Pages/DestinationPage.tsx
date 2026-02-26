@@ -3,7 +3,12 @@ import {destinations} from "../Types/Destination.ts";
 import {useEffect, useState} from "react";
 import SafeImage from "../components/SafeImage";
 import "../Styles/DestinationPage.css";
-export default function DestinationPage() {
+
+type DestinationPageProps = {
+    user: string;
+};
+
+export default function DestinationPage({ user }: Readonly<DestinationPageProps>) {
     const { id } = useParams();
 
     const destination = destinations.find(
@@ -12,9 +17,6 @@ export default function DestinationPage() {
 
     const navigate = useNavigate();
 
-    const goLoginPage = () => {
-        navigate("/login");
-    };
     const [category, setCategory] = useState("tourism.sights"); // default Attractions
     const [places, setPlaces] = useState<any[]>([]);
 
@@ -66,6 +68,14 @@ export default function DestinationPage() {
     }, [destination, category]);
 
     if (!destination) return <h2>Destination not found!</h2>;
+    const isLoggedIn = user && user !== "anonymousUser";
+    const handleNewTrip = () => {
+        if (isLoggedIn) {
+            navigate("/trip");
+        } else {
+            navigate("/login");
+        }
+    };
 
     return (
         <div className="destination-page">
@@ -101,8 +111,8 @@ export default function DestinationPage() {
                     ))
                 )}
             </div>
-            <button className="next-button" onClick={goLoginPage}>
-                Start planning
+            <button className="newTrip-button" onClick={handleNewTrip}>
+                + New Trip
             </button>
         </div>
     );

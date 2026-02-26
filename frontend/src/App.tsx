@@ -27,7 +27,7 @@ function App() {
               <Route path="/" element={<HomePage/>} />
 
               <Route element={<Layout user={user} setUser={setUser} />}>
-                  <Route path="/destination/:id" element={<DestinationPage/>} />
+                  <Route path="/destination/:id" element={<DestinationPage user={user}/>} />
               </Route>
               <Route path="/login" element={<LoginPage setUser={setUser}/>} />
               <Route path="/register" element={<RegisterPage/>} />
