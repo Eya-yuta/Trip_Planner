@@ -4,12 +4,17 @@ import {useNavigate, useParams} from "react-router-dom";
 import "../Styles/DestinationPage.css";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import {destinations} from "../Types/Destination.ts";
+import dayjs from "dayjs";
 
 
 export default function MyTripPage() {
     const { tripId } = useParams();
     const [trip, setTrip] = useState<any>(null);
     const navigate = useNavigate();
+    const numberOfDays = trip
+        ? dayjs(trip.endDate).diff(dayjs(trip.startDate), "day") + 1
+        : 0;
+    const daysArray = Array.from({ length: numberOfDays }, (_, i) => i + 1);
 
     useEffect(() => {
         axios.get(`/api/trips/${tripId}`)
@@ -22,12 +27,10 @@ export default function MyTripPage() {
     // Activities grouped by day
     const groupedActivities = trip.activities?.reduce((acc: any, activity: any) => {
         const day = activity.day;
-        if (!acc[day]) {
-            acc[day] = [];
-        }
+        if (!acc[day]) acc[day] = [];
         acc[day].push(activity);
         return acc;
-    }, {});
+    }, {}) || {};
     const deleteActivity = async (activityTitle: string) => {
         if (!trip) return;
 
@@ -114,7 +117,7 @@ export default function MyTripPage() {
             </button>
 
             <DragDropContext onDragEnd={onDragEnd}>
-                {groupedActivities && Object.keys(groupedActivities).map((day) => (
+                {daysArray.map((day) => (
                     <div key={day} className="day-section">
                         <h2>Day {day}</h2>
                         <Droppable droppableId={`day-${day}`}>
@@ -124,7 +127,7 @@ export default function MyTripPage() {
                                     {...provided.droppableProps}
                                     ref={provided.innerRef}
                                 >
-                                    {groupedActivities[day].map((activity: any, index: number) => (
+                                    {groupedActivities[day]?.map((activity: any, index: number) => (
                                         <Draggable key={activity.title} draggableId={activity.title} index={index}>
                                             {(provided) => (
                                                 <div

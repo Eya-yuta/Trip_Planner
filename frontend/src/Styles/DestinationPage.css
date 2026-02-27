@@ -210,6 +210,7 @@ body {
     height: 100%;
     object-fit: cover;
     display: block;
+    object-position: top;
 }
 
 .activity-card h4 {

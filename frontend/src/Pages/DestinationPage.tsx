@@ -256,6 +256,7 @@ export default function DestinationPage({ user }: Readonly<DestinationPageProps>
                     <label>From</label>
                     <input
                         type="date"
+                        lang="en"
                         value={startDate}
                         min={today}
                         onChange={(e) => setStartDate(e.target.value)}
@@ -264,6 +265,7 @@ export default function DestinationPage({ user }: Readonly<DestinationPageProps>
                     <label>To</label>
                     <input
                         type="date"
+                        lang="en"
                         value={endDate}
                         min={startDate || today}
                         onChange={(e) => setEndDate(e.target.value)}
@@ -321,14 +323,18 @@ export default function DestinationPage({ user }: Readonly<DestinationPageProps>
                     <label>From</label>
                     <input
                         type="date"
+                        lang="en"
                         value={startDate}
+                        min={today}
                         onChange={(e) => setStartDate(e.target.value)}
                     />
 
                     <label>To</label>
                     <input
                         type="date"
+                        lang="en"
                         value={endDate}
+                        min={startDate || today}
                         onChange={(e) => setEndDate(e.target.value)}
                     />
 
