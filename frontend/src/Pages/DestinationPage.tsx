@@ -245,7 +245,7 @@ export default function DestinationPage({ user }: Readonly<DestinationPageProps>
                     <label>Trip Title</label>
                     <input
                         type="text"
-                        placeholder="e.g. Summer Vacation in Paris"
+                        placeholder="e.g. Summer Vacation in ..."
                         value={tripTitle}
                         onChange={(e) => setTripTitle(e.target.value)}
                         className="trip-title-input"

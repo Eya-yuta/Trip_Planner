@@ -1,7 +1,6 @@
 import {Link, useNavigate} from "react-router-dom";
 import {type SubmitEvent, useState} from "react";
 import axios from "axios";
-import "../Styles/LoginPage.css";
 import logo from "../assets/logo.png";
 
 type LoginPageProps= {

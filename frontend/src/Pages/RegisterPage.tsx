@@ -1,7 +1,6 @@
 import {Link, useNavigate} from "react-router-dom";
 import {type SubmitEvent,useState} from "react";
 import axios from "axios";
-import "../Styles/RegisterPage.css";
 import logo from "../assets/logo.png";
 
 export default function RegisterPage() {
@@ -36,9 +35,16 @@ export default function RegisterPage() {
             password
         })
             .then(() => nav("/login"))
-            .catch(() => setError("Registration failed!"));
+            .catch((err) => {
+                if (err.response?.status === 409) {
+                    setError("Username already exists!");
+                } else if (err.response?.status === 400) {
+                    setError("Invalid input data!");
+                } else {
+                    setError("Registration failed! Username or Email already exists!");
+                }
+            });
     }
-
     return (
         <div className="app-container register-page">
             <Link to="/" className="logo">
