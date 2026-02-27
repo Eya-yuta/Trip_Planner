@@ -13,20 +13,18 @@ export default function LoginPage(props:Readonly<LoginPageProps>) {
 
     const [error, setError] = useState<string>("");
 
-    //const [email, setEmail] = useState<string>("")
     const navigate = useNavigate();
 
     function submitLogin(e:SubmitEvent<HTMLFormElement>){
         e.preventDefault()
-        setError(""); // clear previous errors
+        setError("");
         axios
             .post("/api/user/login", undefined, { auth: { username, password } })
             .then((r) => {
-                props.setUser(r.data); // set user
-                navigate("/hello");    // navigate on success
+                props.setUser(r.data);
+                navigate("/hello");
             })
             .catch((err) => {
-                // Check for authentication error
                 if (err.response && err.response.status === 401) {
                     setError("Username or password is incorrect!");
                 } else {

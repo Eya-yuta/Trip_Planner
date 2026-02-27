@@ -64,7 +64,7 @@ export default function MyTripPage() {
 
         const updatedActivities = [...trip.activities];
 
-        // Activity finden
+        //find an activity
         const movedActivity = updatedActivities.find(
             (a: any) =>
                 a.day === sourceDay &&
@@ -75,7 +75,7 @@ export default function MyTripPage() {
 
         if (!movedActivity) return;
 
-        // Day ändern
+        // change the day
         movedActivity.day = destinationDay;
 
         try {

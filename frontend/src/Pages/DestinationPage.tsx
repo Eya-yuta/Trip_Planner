@@ -91,7 +91,6 @@ export default function DestinationPage({ user }: Readonly<DestinationPageProps>
         const fetchTrip = async () => {
             try {
                 if (tripId) {
-                    // Kommt von MyTripPage → bestehenden Trip laden
                     const res = await axios.get(`/api/trips/${tripId}`);
                     setTrip(res.data);
                     setTripTitle(res.data.title || "");
@@ -99,7 +98,6 @@ export default function DestinationPage({ user }: Readonly<DestinationPageProps>
                     setEndDate(res.data.endDate || "");
                     setNotes(res.data.notes || "");
                 } else {
-                    // Normaler Flow → aktiven Trip für Destination laden
                     const res = await axios.get(
                         `/api/trips/user/${user}/destination/${destination.name}`
                     );

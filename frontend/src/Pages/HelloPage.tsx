@@ -2,16 +2,8 @@ import { useNavigate} from "react-router-dom";
 import "../Styles/HelloPage.css";
 import {destinations} from "../Types/Destination.ts";
 
-type ProtectedRouteProps = {
-    user:string
-    setUser:(username:string) => void
-}
-export default function HelloPage(props:Readonly<ProtectedRouteProps>) {
+export default function HelloPage() {
     const navigate = useNavigate();
-    const goNextPage = () => {
-        navigate("/trip");
-    };
-
     return (
         <>
         <div className="hello-container">
@@ -37,7 +29,6 @@ export default function HelloPage(props:Readonly<ProtectedRouteProps>) {
                 </div>
 
             </div>
-
         </div>
         </>
     );

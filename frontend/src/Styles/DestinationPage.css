@@ -1,4 +1,3 @@
-/* Reset some default styling */
 * {
     margin: 0;
     padding: 0;
@@ -11,14 +10,12 @@ body {
     color: #333;
 }
 
-/* Page container */
 .destination-page {
     max-width: 1200px;
     margin: 2rem auto;
     padding: 0 1rem;
 }
 
-/* Destination title */
 .destination-title {
     font-size: 3rem;
     font-weight: 700;
@@ -27,7 +24,6 @@ body {
     color: #222;
 }
 
-/* Categories title */
 .categories-title {
     font-size: 1.5rem;
     font-weight: 600;
@@ -35,7 +31,6 @@ body {
     text-align: center;
 }
 
-/* Categories container */
 .categories-container {
     display: flex;
     justify-content: center;
@@ -44,7 +39,6 @@ body {
     flex-wrap: wrap;
 }
 
-/* Category buttons */
 .category-button {
     background-color: #fff;
     border: 2px solid #ddd;
@@ -66,7 +60,6 @@ body {
     transform: translateY(-2px);
 }
 
-/* Places list */
 .places-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -74,7 +67,6 @@ body {
     margin-bottom: 2rem;
 }
 
-/* Place card */
 .place-card {
     background-color: #fff;
     border-radius: 16px;
@@ -91,7 +83,6 @@ body {
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
 }
 
-/* Image wrapper */
 .image-wrapper {
     overflow: hidden;
     border-radius: 12px;
@@ -110,13 +101,10 @@ body {
     transform: scale(1.05);
 }
 
-/* Address text */
 .place-card p {
     font-size: 0.95rem;
     color: #555;
 }
-
-
 .category-button.active {
     background: linear-gradient(135deg, #fffde7, #fff9c4);
     color: #8a6d1f;
@@ -281,14 +269,12 @@ body {
     color: #333;
 }
 
-/* Labels */
 .trip-form-inline label {
     font-weight: 600;
     font-size: 14px;
     color: #555;
 }
 
-/* Date Inputs */
 .trip-form-inline input[type="date"] {
     padding: 10px 12px;
     border-radius: 10px;
@@ -303,7 +289,6 @@ body {
     box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.15);
 }
 
-/* Textarea */
 .trip-form-inline textarea {
     padding: 12px;
     border-radius: 12px;
@@ -320,7 +305,6 @@ body {
     box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.15);
 }
 
-/* Confirm Button */
 .confirm-trip-button {
     margin-top: 10px;
     padding: 12px;
@@ -353,7 +337,6 @@ body {
         transform: translateY(0);
     }
 }
-/* Trip Title Input */
 .trip-title-input {
     padding: 12px;
     border-radius: 12px;
