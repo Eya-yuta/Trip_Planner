@@ -17,8 +17,12 @@ import static org.mockito.ArgumentMatchers.any;
 
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 @ExtendWith(MockitoExtension.class)
 class TripServiceTest {
@@ -80,6 +84,13 @@ class TripServiceTest {
 
     @Test
     void createTrip_shouldSaveTrip() {
+        Authentication authentication = mock(Authentication.class);
+        when(authentication.getName()).thenReturn("Test-User1");
+
+        SecurityContext securityContext = mock(SecurityContext.class);
+        when(securityContext.getAuthentication()).thenReturn(authentication);
+
+        SecurityContextHolder.setContext(securityContext);
 
         TripDTO tripDTO = new TripDTO(
                 "Test-User1",
@@ -105,6 +116,13 @@ class TripServiceTest {
 
     @Test
     void updateTrip_shouldUpdateExistingTrip() {
+        Authentication authentication = mock(Authentication.class);
+        when(authentication.getName()).thenReturn("Test-User1");
+
+        SecurityContext securityContext = mock(SecurityContext.class);
+        when(securityContext.getAuthentication()).thenReturn(authentication);
+
+        SecurityContextHolder.setContext(securityContext);
 
         TripDTO updatedTripDTO = new TripDTO(
                 "Test-User1",
@@ -119,7 +137,7 @@ class TripServiceTest {
         // Mock existing trip
         Trip existingTrip = new Trip();
         existingTrip.setId("1");
-        existingTrip.setUserId("demo-user");  // Important!
+        existingTrip.setUserId("Test-User1");
         existingTrip.setTitle("Old Title");
         existingTrip.setDestination("Paris");
         existingTrip.setNotes("Old notes");

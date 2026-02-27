@@ -1,28 +1,19 @@
 package triply.backend.controller;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
-import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.web.servlet.assertj.MockMvcTester;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import tools.jackson.databind.ObjectMapper;
-import triply.backend.model.TripUser;
 import triply.backend.model.TripUserDTO;
 import triply.backend.repository.TripUserRepo;
 import triply.backend.service.TripUserService;
-
-import java.util.UUID;
 import org.springframework.http.MediaType;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -36,7 +27,6 @@ class TripUserControllerTest {
     private TripUserService service;
     @Autowired
     PasswordEncoder encoder;
-    //private Argon2PasswordEncoder encoder = Argon2PasswordEncoder.defaultsForSpringSecurity_v5_8();
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Test
@@ -80,9 +70,6 @@ class TripUserControllerTest {
     void logout_clearsSession() throws Exception{
         mvc.perform(MockMvcRequestBuilders.get("/api/user/logout"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
-
-        // check that SecurityContext is empty
-        //assertNull(service.loadUserByUsername("testuser")); // nur für Demo, falls testuser noch nicht registriert
 
     }
 }

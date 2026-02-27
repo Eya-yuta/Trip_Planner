@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -76,6 +77,7 @@ class TripControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.destination").value("Paris"));
     }
 
+    @WithMockUser(username = "user1")
     @Test
     void updateTripTest() throws Exception {
         Trip trip = new Trip(null, "user1", "London Trip", "London", "2026-07-01", "2026-07-05", "London Eye", List.of(new Activity(1, "British Museum","imagePath")));
