@@ -40,7 +40,7 @@ export default function MyTripsOverviewPage({ user}: Readonly<MyTripsOverviewPag
 
     return (
         <div style={{ padding: "40px" }}>
-            <h1>📊 My Trips</h1>
+            <h1>🧳 My Trips</h1>
 
             <div className="activities-grid">
                 {trips.length === 0 ? (
@@ -63,7 +63,7 @@ export default function MyTripsOverviewPage({ user}: Readonly<MyTripsOverviewPag
                                 </button>
 
                                 <button
-                                    className="delete-activity-button"
+                                    className="delete-trip-button"
                                     onClick={() => deleteTrip(trip.id)}
                                     style={{ marginLeft: "10px" }}
                                 >

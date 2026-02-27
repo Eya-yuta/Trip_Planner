@@ -14,9 +14,6 @@ export default function HelloPage(props:Readonly<ProtectedRouteProps>) {
 
     return (
         <>
-            <button className="newTrip-button" onClick={goNextPage}>
-                +  New Trip
-            </button>
         <div className="hello-container">
             <div className="hello-content">
                 <p className="hello-subtitle">Your trip starts now!</p>

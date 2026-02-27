@@ -38,7 +38,7 @@ export default function TripFormPage() {
 
             const createdTrip = response.data;
 
-            navigate("/trip-summary", {
+            navigate(`/destination/${selectedDestination?.id}`, {
                 state: {
                     tripId: createdTrip.id,
                     destinationId: selectedDestinationId,

@@ -189,13 +189,14 @@ body {
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 25px;
     color: #ff4d4f;
     transition: transform 0.2s ease;
 }
 
 .delete-activity-button:hover {
     transform: scale(1.2);
+    color: #b91c1c;
 }
 .activity-image-wrapper {
     width: 100%;
@@ -500,4 +501,19 @@ body {
 .edit-trip-button:hover {
     background-color: #4a90e2;
     color: white;
+}
+.delete-trip-button{
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 25px;
+    color: #ff4d4f;
+    transition: transform 0.2s ease;
+}
+.delete-trip-button:hover {
+    transform: scale(1.2);
+    color: #b91c1c;
 }

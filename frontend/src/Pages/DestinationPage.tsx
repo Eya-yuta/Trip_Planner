@@ -28,6 +28,7 @@ export default function DestinationPage({ user }: Readonly<DestinationPageProps>
     const [tripTitle, setTripTitle] = useState("");
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
+    const today = dayjs().format("YYYY-MM-DD");
     const [notes, setNotes] = useState("");
 
     const apiKey = import.meta.env.VITE_GEOAPIFY_KEY;
@@ -123,12 +124,16 @@ export default function DestinationPage({ user }: Readonly<DestinationPageProps>
     ==============================*/
     const handleCreateTrip = async () => {
         if (!destination || !startDate || !endDate) {
-            alert("Please fill all required fields");
+            alert("Please fill all required fields!");
             return;
         }
 
         if (dayjs(endDate).isBefore(dayjs(startDate))) {
-            alert("End date must be after start date");
+            alert("End date must be after start date!");
+            return;
+        }
+        if (dayjs(startDate).isBefore(dayjs())) {
+            alert("Start date cannot be in the past!");
             return;
         }
 
@@ -252,6 +257,7 @@ export default function DestinationPage({ user }: Readonly<DestinationPageProps>
                     <input
                         type="date"
                         value={startDate}
+                        min={today}
                         onChange={(e) => setStartDate(e.target.value)}
                     />
 
@@ -259,6 +265,7 @@ export default function DestinationPage({ user }: Readonly<DestinationPageProps>
                     <input
                         type="date"
                         value={endDate}
+                        min={startDate || today}
                         onChange={(e) => setEndDate(e.target.value)}
                     />
 
