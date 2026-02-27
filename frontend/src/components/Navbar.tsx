@@ -50,14 +50,15 @@ export default function Navbar({ user, setUser }: Readonly<NavbarProps>) {
                     {searchQuery && filteredDestinations.length > 0 && (
                         <ul className="search-dropdown">
                             {filteredDestinations.map(dest => (
-                                <li
-                                    key={dest.id}
+                                <li key={dest.id}>
+                                    <button
                                     onClick={() => {
                                         navigate(`/destination/${dest.id}`);
                                         setSearchQuery("");
                                     }}
-                                >
+                                    className="dropdown-button">
                                     {dest.name}, {dest.country}
+                                    </button>
                                 </li>
                             ))}
                         </ul>

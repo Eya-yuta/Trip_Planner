@@ -5,7 +5,6 @@ import {destinations} from "../Types/Destination.ts";
 export default function HelloPage() {
     const navigate = useNavigate();
     return (
-        <>
         <div className="hello-container">
             <div className="hello-content">
                 <p className="hello-subtitle">Your trip starts now!</p>
@@ -15,7 +14,7 @@ export default function HelloPage() {
 
                     <div className="destinations-grid">
                         {destinations.map((dest) => (
-                            <div
+                            <button
                                 key={dest.id}
                                 className="destination-card"
                                 onClick={() => navigate(`/destination/${dest.id}`)}
@@ -23,13 +22,12 @@ export default function HelloPage() {
                             >
                                 <img src={dest.image} alt={dest.name} />
                                 <h3>{dest.name}</h3>
-                            </div>
+                            </button>
                         ))}
                     </div>
                 </div>
 
             </div>
         </div>
-        </>
     );
 }

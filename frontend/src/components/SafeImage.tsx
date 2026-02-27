@@ -12,7 +12,7 @@ export default function SafeImage({
                                       alt,
                                       className,
                                       fallback = "/images/placeholder.jpg",
-                                  }: SafeImageProps) {
+                                  }: Readonly<SafeImageProps>) {
     const [imgSrc, setImgSrc] = useState(src);
 
     return (

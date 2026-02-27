@@ -21,7 +21,7 @@ export default function HomePage() {
 
                 <div className="destinations-grid">
                     {destinations.map((dest) => (
-                        <div
+                        <button
                             key={dest.id}
                             className="destination-card"
                             onClick={() => navigate(`/destination/${dest.id}`)}
@@ -29,7 +29,7 @@ export default function HomePage() {
                         >
                             <img src={dest.image} alt={dest.name} />
                             <h3>{dest.name}</h3>
-                        </div>
+                        </button>
                     ))}
                 </div>
             </div>

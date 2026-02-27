@@ -6,7 +6,7 @@ type LayoutProps = {
     setUser: (username: string) => void;
 };
 
-export default function Layout({ user, setUser }: LayoutProps) {
+export default function Layout({ user, setUser }: Readonly<LayoutProps>) {
     return (
         <>
             <Navbar user={user} setUser={setUser} />

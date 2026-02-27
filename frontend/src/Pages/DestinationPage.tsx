@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate ,useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { destinations } from "../Types/Destination";
 import SafeImage from "../components/SafeImage";
@@ -6,7 +6,6 @@ import axios from "axios";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import dayjs from "dayjs";
 import "../Styles/DestinationPage.css";
-import { useSearchParams } from "react-router-dom";
 
 type DestinationPageProps = {
     user: string;
@@ -37,7 +36,10 @@ export default function DestinationPage({ user }: Readonly<DestinationPageProps>
     const tripId = searchParams.get("tripId");
 
     const formatImageName = (name: string) =>
-        name?.toLowerCase().replace(/\s+/g, "-").replace(/[^\w-]/g, "");
+        name
+            ?.toLowerCase()
+            .replaceAll(" ", "-")
+            .replaceAll(/[^a-z0-9-]/g, "");
 
     /* =============================
        FETCH PLACES
@@ -108,7 +110,8 @@ export default function DestinationPage({ user }: Readonly<DestinationPageProps>
                     setNotes(res.data.notes || "");
                 }
             } catch (err) {
-                console.log("No trip found");
+                console.error("Could not fetch trip:", err);
+                //alert("Could not load your trip. Please try again.");
                 setTrip(null);
             }
         };
@@ -138,9 +141,7 @@ export default function DestinationPage({ user }: Readonly<DestinationPageProps>
         try {
             const response = await axios.post("/api/trips", {
                 userId: user,
-                title: tripTitle.trim() !== ""
-                    ? tripTitle
-                    : `Trip to ${destination.name}`,
+                title: tripTitle.trim() ? tripTitle : `Trip to ${destination.name}`,
                 destination: destination.name,
                 startDate,
                 endDate,
@@ -420,26 +421,28 @@ export default function DestinationPage({ user }: Readonly<DestinationPageProps>
             </div>
 
             {/* BOTTOM BUTTON */}
-            {!isLoggedIn ? (
+            {isLoggedIn ? (
+                trip ? (
+                    <button
+                        className="newTrip-button"
+                        onClick={() => navigate(`/my-trip/${trip.id}`)}
+                    >
+                        View My Trip
+                    </button>
+                ) : (
+                    <button
+                        className="newTrip-button"
+                        onClick={() => setShowTripForm(true)}
+                    >
+                        + Start Trip
+                    </button>
+                )
+            ) : (
                 <button
                     className="newTrip-button"
                     onClick={() => navigate("/login")}
                 >
                     + New Trip
-                </button>
-            ) : trip ? (
-                <button
-                    className="newTrip-button"
-                    onClick={() => navigate(`/my-trip/${trip.id}`)}
-                >
-                    View My Trip
-                </button>
-            ) : (
-                <button
-                    className="newTrip-button"
-                    onClick={() => setShowTripForm(true)}
-                >
-                    + Start Trip
                 </button>
             )}
         </div>
