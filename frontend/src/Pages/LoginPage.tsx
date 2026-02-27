@@ -16,10 +16,6 @@ export default function LoginPage(props:Readonly<LoginPageProps>) {
     //const [email, setEmail] = useState<string>("")
     const navigate = useNavigate();
 
-        const goRegisterPage = () => {
-            navigate("/register");
-        };
-
     function submitLogin(e:SubmitEvent<HTMLFormElement>){
         e.preventDefault()
         setError(""); // clear previous errors
@@ -60,12 +56,9 @@ export default function LoginPage(props:Readonly<LoginPageProps>) {
             {/* Register text */}
             <p className="register-text">
                 Don't have an account yet?{" "}
-                <span
-                    className="register-link"
-                    onClick={goRegisterPage}
-                >
-          Register
-        </span>
+                <Link to="/register" className="register-link">
+                    Register
+                </Link>
             </p>
         </div>
     );

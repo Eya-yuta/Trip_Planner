@@ -184,7 +184,7 @@ body {
 
 .delete-activity-button {
     position: absolute;
-    top: 8px;
+    bottom: 8px;
     right: 8px;
     background: none;
     border: none;
@@ -210,7 +210,7 @@ body {
     height: 100%;
     object-fit: cover;
     display: block;
-    object-position: top;
+    object-position: center;
 }
 
 .activity-card h4 {
