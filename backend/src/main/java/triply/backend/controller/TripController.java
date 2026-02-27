@@ -3,6 +3,7 @@ package triply.backend.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import triply.backend.model.Trip;
+import triply.backend.model.TripDTO;
 import triply.backend.service.TripService;
 
 import java.util.List;
@@ -27,15 +28,15 @@ public class TripController {
 
     // CREATE trip
     @PostMapping
-    public Trip createTrip(@RequestBody Trip trip) {
-        return tripService.createTrip(trip);
+    public Trip createTrip(@RequestBody TripDTO tripDTO) {
+        return tripService.createTrip(tripDTO);
     }
 
     // UPDATE trip
     @PutMapping("/{id}")
     public Trip updateTrip(@PathVariable String id,
-                           @RequestBody Trip trip) {
-        return tripService.updateTrip(id, trip);
+                           @RequestBody TripDTO tripDTO) {
+        return tripService.updateTrip(id, tripDTO);
     }
 
     // DELETE trip
