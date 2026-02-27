@@ -395,3 +395,109 @@ body {
     transform: translateY(-4px);
     box-shadow: 0 12px 25px rgba(0,0,0,0.12);
 }
+/* =============================
+   TRIP FORM CONTAINER
+============================= */
+.trip-form-inline {
+    max-width: 500px;
+    margin: 30px auto;
+    padding: 25px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* =============================
+   LABELS
+============================= */
+.trip-form-inline label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #444;
+}
+
+/* =============================
+   INPUT FIELDS
+============================= */
+.trip-form-inline input,
+.trip-form-inline textarea {
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.trip-form-inline input:focus,
+.trip-form-inline textarea:focus {
+    outline: none;
+    border-color: #4a90e2;
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.15);
+}
+
+/* =============================
+   TEXTAREA
+============================= */
+.trip-form-inline textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+/* =============================
+   CONFIRM BUTTON
+============================= */
+.confirm-trip-button {
+    margin-top: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: #4a90e2;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.confirm-trip-button:hover {
+    background-color: #357abd;
+    transform: translateY(-1px);
+}
+
+/* =============================
+   CANCEL BUTTON
+============================= */
+.cancel-button {
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: #eee;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.cancel-button:hover {
+    background-color: #ddd;
+}
+
+/* =============================
+   EDIT BUTTON
+============================= */
+.edit-trip-button {
+    display: block;
+    margin: 10px auto;
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: none;
+    background-color: #f0f2f5;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 14px;
+}
+
+.edit-trip-button:hover {
+    background-color: #4a90e2;
+    color: white;
+}

@@ -110,7 +110,7 @@ export default function MyTripPage() {
                 className="newTrip-button"
                 onClick={handleAddMorePlaces}
             >
-                + Add More Places
+                Edit Trip
             </button>
 
             <DragDropContext onDragEnd={onDragEnd}>

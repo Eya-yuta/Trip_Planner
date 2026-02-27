@@ -18,6 +18,7 @@ export default function DestinationPage({ user }: Readonly<DestinationPageProps>
 
     const destination = destinations.find(d => d.id === Number(id));
     const isLoggedIn = user && user !== "anonymousUser";
+    const [isEditing, setIsEditing] = useState(false);
 
     const [category, setCategory] = useState("tourism.sights");
     const [places, setPlaces] = useState<any[]>([]);
@@ -92,12 +93,20 @@ export default function DestinationPage({ user }: Readonly<DestinationPageProps>
                     // Kommt von MyTripPage → bestehenden Trip laden
                     const res = await axios.get(`/api/trips/${tripId}`);
                     setTrip(res.data);
+                    setTripTitle(res.data.title || "");
+                    setStartDate(res.data.startDate || "");
+                    setEndDate(res.data.endDate || "");
+                    setNotes(res.data.notes || "");
                 } else {
                     // Normaler Flow → aktiven Trip für Destination laden
                     const res = await axios.get(
                         `/api/trips/user/${user}/destination/${destination.name}`
                     );
                     setTrip(res.data);
+                    setTripTitle(res.data.title || "");
+                    setStartDate(res.data.startDate || "");
+                    setEndDate(res.data.endDate || "");
+                    setNotes(res.data.notes || "");
                 }
             } catch (err) {
                 console.log("No trip found");
@@ -141,6 +150,32 @@ export default function DestinationPage({ user }: Readonly<DestinationPageProps>
         } catch (err) {
             console.error(err);
             alert("Trip could not be created");
+        }
+    };
+    const handleUpdateTrip = async () => {
+        if (!trip) return;
+
+        if (dayjs(endDate).isBefore(dayjs(startDate))) {
+            alert("End date must be after start date");
+            return;
+        }
+
+        try {
+            const response = await axios.put(`/api/trips/${trip.id}`, {
+                userId: user,
+                title: tripTitle,
+                destination: trip.destination,
+                startDate,
+                endDate,
+                notes,
+                activities: trip.activities
+            });
+
+            setTrip(response.data);
+            setIsEditing(false);
+        } catch (err) {
+            console.error(err);
+            alert("Trip update failed");
         }
     };
 
@@ -244,16 +279,72 @@ export default function DestinationPage({ user }: Readonly<DestinationPageProps>
             )}
 
             {/* TRIP INFO */}
-            {isLoggedIn && trip && (
+            {isLoggedIn && trip && !isEditing && (
                 <>
-                     {trip.notes && (
-                        <p style={{ textAlign: "center" }}>📝{trip.notes}</p>
+                    <h3 style={{ textAlign: "center",marginBottom:"15px" }}>{trip.title}</h3>
+
+                    {trip.notes && (
+                        <p style={{ textAlign: "center" }}>📝 {trip.notes}</p>
                     )}
-                    <p style={{ textAlign: "center",marginTop:"15px",marginBottom:"15px"}}>
+
+                    <p style={{ textAlign: "center", margin: "15px 0" }}>
                         📅 {dayjs(trip.startDate).format("DD.MM.YYYY")} →
                         {dayjs(trip.endDate).format("DD.MM.YYYY")}
                     </p>
+
+                    <button
+                        className="edit-trip-button"
+                        onClick={() => setIsEditing(true)}
+                    >
+                        ✏️ Edit Trip Infos
+                    </button>
                 </>
+            )}
+            {isLoggedIn && trip && isEditing && (
+                <div className="trip-form-inline">
+                    <h3>Edit Trip</h3>
+
+                    <label>Trip Title</label>
+                    <input
+                        type="text"
+                        value={tripTitle}
+                        onChange={(e) => setTripTitle(e.target.value)}
+                    />
+
+                    <label>From</label>
+                    <input
+                        type="date"
+                        value={startDate}
+                        onChange={(e) => setStartDate(e.target.value)}
+                    />
+
+                    <label>To</label>
+                    <input
+                        type="date"
+                        value={endDate}
+                        onChange={(e) => setEndDate(e.target.value)}
+                    />
+
+                    <label>Notes</label>
+                    <textarea
+                        value={notes}
+                        onChange={(e) => setNotes(e.target.value)}
+                    />
+
+                    <button
+                        className="confirm-trip-button"
+                        onClick={handleUpdateTrip}
+                    >
+                        Save Changes
+                    </button>
+
+                    <button
+                        className="cancel-button"
+                        onClick={() => setIsEditing(false)}
+                    >
+                        Cancel
+                    </button>
+                </div>
             )}
 
             {/* CATEGORY BUTTONS */}
