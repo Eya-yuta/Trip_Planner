@@ -56,6 +56,7 @@ body {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    margin-top: 1rem;
 }
 
 .category-button:hover {
@@ -221,6 +222,32 @@ body {
     margin-bottom: 15px;
     margin-top: 15px;
 }
+.tripView-dates {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 8px 14px;
+    margin: 12px 0;
+
+    background: linear-gradient(135deg, #f5f7fa, #e4e8ef);
+    border-radius: 30px;
+
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.date-icon {
+    font-size: 16px;
+}
+
+.date-separator {
+    margin: 0 4px;
+    opacity: 0.6;
+}
 .trip-notes {
     font-size: 1rem;
     color: #333;
@@ -338,4 +365,33 @@ body {
     outline: none;
     border-color: #4a90e2;
     box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.15);
+}
+.view-trip-icon {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    position: absolute;
+    top: 4px;
+    left: 8px;
+}
+
+.view-trip-icon:hover {
+    transform: scale(1.2);
+    opacity: 0.8;
+}
+.view-card {
+    position: relative;
+    background: white;
+    border-radius: 16px;
+    padding: 50px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    transition: all 0.2s ease;
+    width: 300px;
+}
+
+.view-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.12);
 }

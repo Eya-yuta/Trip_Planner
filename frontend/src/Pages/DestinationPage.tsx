@@ -246,10 +246,10 @@ export default function DestinationPage({ user }: Readonly<DestinationPageProps>
             {/* TRIP INFO */}
             {isLoggedIn && trip && (
                 <>
-                    {trip.notes && (
-                        <p style={{ textAlign: "center" }}>{trip.notes}</p>
+                     {trip.notes && (
+                        <p style={{ textAlign: "center" }}>📝{trip.notes}</p>
                     )}
-                    <p style={{ textAlign: "center" }}>
+                    <p style={{ textAlign: "center",marginTop:"15px",marginBottom:"15px"}}>
                         📅 {dayjs(trip.startDate).format("DD.MM.YYYY")} →
                         {dayjs(trip.endDate).format("DD.MM.YYYY")}
                     </p>

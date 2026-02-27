@@ -30,6 +30,13 @@ export default function MyTripsOverviewPage({ user}: Readonly<MyTripsOverviewPag
             alert("Could not delete trip");
         }
     };
+    function formatDate(dateString: string) {
+        const date = new Date(dateString);
+        const day = String(date.getDate()).padStart(2, "0");
+        const month = String(date.getMonth() + 1).padStart(2, "0"); // Monate beginnen bei 0
+        const year = date.getFullYear();
+        return `${day}.${month}.${year}`;
+    }
 
     return (
         <div style={{ padding: "40px" }}>
@@ -40,17 +47,19 @@ export default function MyTripsOverviewPage({ user}: Readonly<MyTripsOverviewPag
                     <p>No trips yet...</p>
                 ) : (
                     trips.map((trip) => (
-                        <div key={trip.id} className="activity-card">
-                            <h3>{trip.title}</h3>
-                            <p>{trip.destination}</p>
-                            <p>📅 {trip.startDate} → {trip.endDate}</p>
+                        <div key={trip.id} className="view-card">
+                            <h3 style={{ textAlign: "center",paddingTop: "1px", marginBottom: "15px" }}>{trip.title}</h3>
+                            <p style={{ textAlign: "center",marginTop: "10px", marginBottom: "15px" }}>{trip.destination}</p>
+                            <p className="tripView-dates"><span className="date-icon">📅</span>
+                                {formatDate(trip.startDate)} <span className="date-separator">→</span>
+                                {formatDate(trip.endDate)}</p>
 
                             <div style={{ marginTop: "10px" }}>
                                 <button
-                                    className="next-button"
+                                    className="view-trip-icon"
                                     onClick={() => navigate(`/my-trip/${trip.id}`)}
                                 >
-                                    View Trip
+                                    👁️
                                 </button>
 
                                 <button
