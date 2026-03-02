@@ -56,7 +56,7 @@ body {
 .category-button:hover {
     border-color: #8a6d1f;
     background-color: #f0f0ff;
-    color: #8a6d1f;
+    color:#222222;
     transform: translateY(-2px);
 }
 
@@ -76,6 +76,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    position: relative;
 }
 
 .place-card:hover {
@@ -111,9 +112,6 @@ body {
     border-color: #8a6d1f;
     transform: translateY(-2px);
 }
-.place-card {
-    position: relative;
-}
 
 .add-activity-button {
     position: absolute;
@@ -135,16 +133,7 @@ body {
     color: white;
     transform: scale(1.1);
 }
-.add-activity-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    transition: transform 0.2s ease;
-}
 
-.add-activity-button:hover {
-    transform: scale(1.2);
-}
 .day-section {
     margin-top: 30px;
 }
@@ -310,7 +299,7 @@ body {
     padding: 12px;
     border-radius: 12px;
     border: none;
-    background: linear-gradient(135deg, #22c55e, #22c55e);
+    background:  linear-gradient(135deg, #16a34a, #15803d);
     color: white;
     font-weight: 600;
     cursor: pointer;
@@ -380,29 +369,6 @@ body {
     transform: translateY(-4px);
     box-shadow: 0 12px 25px rgba(0,0,0,0.12);
 }
-/* =============================
-   TRIP FORM CONTAINER
-============================= */
-.trip-form-inline {
-    max-width: 500px;
-    margin: 30px auto;
-    padding: 25px;
-    background: white;
-    border-radius: 16px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-/* =============================
-   LABELS
-============================= */
-.trip-form-inline label {
-    font-size: 14px;
-    font-weight: 600;
-    color: #444;
-}
 
 /* =============================
    INPUT FIELDS
@@ -421,34 +387,6 @@ body {
     outline: none;
     border-color: #4a90e2;
     box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.15);
-}
-
-/* =============================
-   TEXTAREA
-============================= */
-.trip-form-inline textarea {
-    min-height: 80px;
-    resize: vertical;
-}
-
-/* =============================
-   CONFIRM BUTTON
-============================= */
-.confirm-trip-button {
-    margin-top: 10px;
-    padding: 10px;
-    border: none;
-    border-radius: 10px;
-    background-color: #4a90e2;
-    color: white;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.confirm-trip-button:hover {
-    background-color: #357abd;
-    transform: translateY(-1px);
 }
 
 /* =============================

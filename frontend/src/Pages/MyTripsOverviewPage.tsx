@@ -7,7 +7,13 @@ type MyTripsOverviewPageProps = {
     user: string;
     setUser: (username: string) => void;
 }
-
+function formatDate(dateString: string) {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0"); // Monate beginnen bei 0
+    const year = date.getFullYear();
+    return `${day}.${month}.${year}`;
+}
 
 export default function MyTripsOverviewPage({ user}: Readonly<MyTripsOverviewPageProps>) {
     const [trips, setTrips] = useState<any[]>([]);
@@ -30,13 +36,6 @@ export default function MyTripsOverviewPage({ user}: Readonly<MyTripsOverviewPag
             alert("Could not delete trip");
         }
     };
-    function formatDate(dateString: string) {
-        const date = new Date(dateString);
-        const day = String(date.getDate()).padStart(2, "0");
-        const month = String(date.getMonth() + 1).padStart(2, "0"); // Monate beginnen bei 0
-        const year = date.getFullYear();
-        return `${day}.${month}.${year}`;
-    }
 
     return (
         <div style={{ padding: "40px" }}>

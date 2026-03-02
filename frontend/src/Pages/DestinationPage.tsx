@@ -55,12 +55,15 @@ export default function DestinationPage({ user }: Readonly<DestinationPageProps>
 
                 const data = await response.json();
 
-                const folder =
-                    category === "tourism.sights"
-                        ? "attractions"
-                        : category === "catering.restaurant"
-                            ? "restaurants"
-                            : "cafes";
+                let folder: string;
+
+                if (category === "tourism.sights") {
+                    folder = "attractions";
+                } else if (category === "catering.restaurant") {
+                    folder = "restaurants";
+                } else {
+                    folder = "cafes";
+                }
 
                 const uniqueMap = new Map();
 
@@ -186,10 +189,8 @@ export default function DestinationPage({ user }: Readonly<DestinationPageProps>
     /* =============================
        ACTIVITY HANDLING
     ==============================*/
-    const isActivityAdded = (placeName: string) => {
-        if (!trip || !trip.activities) return false;
-        return trip.activities.some((a: any) => a.title === placeName);
-    };
+    const isActivityAdded = (placeName: string): boolean =>
+        trip?.activities?.some((a: any) => a.title === placeName) ?? false;
 
     const toggleActivity = async (place: any) => {
         if (!trip) return;
@@ -233,6 +234,36 @@ export default function DestinationPage({ user }: Readonly<DestinationPageProps>
     };
 
     if (!destination) return <h2>Destination not found</h2>;
+    let bottomButton;
+
+    if (!isLoggedIn) {
+        bottomButton = (
+            <button
+                className="newTrip-button"
+                onClick={() => navigate("/login")}
+            >
+                + New Trip
+            </button>
+        );
+    } else if (trip) {
+        bottomButton = (
+            <button
+                className="newTrip-button"
+                onClick={() => navigate(`/my-trip/${trip.id}`)}
+            >
+                View My Trip
+            </button>
+        );
+    } else {
+        bottomButton = (
+            <button
+                className="newTrip-button"
+                onClick={() => setShowTripForm(true)}
+            >
+                + Start Trip
+            </button>
+        );
+    }
 
     return (
         <div className="destination-page">
@@ -243,7 +274,7 @@ export default function DestinationPage({ user }: Readonly<DestinationPageProps>
                 <div className="trip-form-inline">
                     <h3>Plan Your Trip</h3>
 
-                    <label>Trip Title</label>
+                    <label htmlFor="tripTitle">Trip Title</label>
                     <input
                         type="text"
                         placeholder="e.g. Summer Vacation in ..."
@@ -252,7 +283,7 @@ export default function DestinationPage({ user }: Readonly<DestinationPageProps>
                         className="trip-title-input"
                     />
 
-                    <label>From</label>
+                    <label htmlFor="startDate">From</label>
                     <input
                         type="date"
                         lang="en"
@@ -261,7 +292,7 @@ export default function DestinationPage({ user }: Readonly<DestinationPageProps>
                         onChange={(e) => setStartDate(e.target.value)}
                     />
 
-                    <label>To</label>
+                    <label htmlFor="endDate">To</label>
                     <input
                         type="date"
                         lang="en"
@@ -270,7 +301,7 @@ export default function DestinationPage({ user }: Readonly<DestinationPageProps>
                         onChange={(e) => setEndDate(e.target.value)}
                     />
 
-                    <label>Notes</label>
+                    <label htmlFor="notes">Notes</label>
                     <textarea
                         placeholder="Write something about your trip..."
                         value={notes}
@@ -312,14 +343,14 @@ export default function DestinationPage({ user }: Readonly<DestinationPageProps>
                 <div className="trip-form-inline">
                     <h3>Edit Trip</h3>
 
-                    <label>Trip Title</label>
+                    <label htmlFor="tripTitle">Trip Title</label>
                     <input
                         type="text"
                         value={tripTitle}
                         onChange={(e) => setTripTitle(e.target.value)}
                     />
 
-                    <label>From</label>
+                    <label htmlFor="startDate">From</label>
                     <input
                         type="date"
                         lang="en"
@@ -328,7 +359,7 @@ export default function DestinationPage({ user }: Readonly<DestinationPageProps>
                         onChange={(e) => setStartDate(e.target.value)}
                     />
 
-                    <label>To</label>
+                    <label htmlFor="endDate">To</label>
                     <input
                         type="date"
                         lang="en"
@@ -337,7 +368,7 @@ export default function DestinationPage({ user }: Readonly<DestinationPageProps>
                         onChange={(e) => setEndDate(e.target.value)}
                     />
 
-                    <label>Notes</label>
+                    <label htmlFor="notes">Notes</label>
                     <textarea
                         value={notes}
                         onChange={(e) => setNotes(e.target.value)}
@@ -421,30 +452,7 @@ export default function DestinationPage({ user }: Readonly<DestinationPageProps>
             </div>
 
             {/* BOTTOM BUTTON */}
-            {isLoggedIn ? (
-                trip ? (
-                    <button
-                        className="newTrip-button"
-                        onClick={() => navigate(`/my-trip/${trip.id}`)}
-                    >
-                        View My Trip
-                    </button>
-                ) : (
-                    <button
-                        className="newTrip-button"
-                        onClick={() => setShowTripForm(true)}
-                    >
-                        + Start Trip
-                    </button>
-                )
-            ) : (
-                <button
-                    className="newTrip-button"
-                    onClick={() => navigate("/login")}
-                >
-                    + New Trip
-                </button>
-            )}
+            {bottomButton}
         </div>
     );
 }
