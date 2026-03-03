@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import {useNavigate, useParams} from "react-router-dom";
 import "../Styles/DestinationPage.css";
-import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
+import { DragDropContext} from "@hello-pangea/dnd";
 import {destinations} from "../Types/Destination.ts";
 import dayjs from "dayjs";
+import {DaySection} from "../components/DaySection.tsx";
 
 function formatDate(dateString: string) {
     const date = new Date(dateString);
@@ -117,45 +118,12 @@ export default function MyTripPage() {
 
             <DragDropContext onDragEnd={onDragEnd}>
                 {daysArray.map((day) => (
-                    <div key={day} className="day-section">
-                        <h2>Day {day}</h2>
-                        <Droppable droppableId={`day-${day}`}>
-                            {(provided) => (
-                                <div
-                                    className="activities-grid"
-                                    {...provided.droppableProps}
-                                    ref={provided.innerRef}
-                                >
-                                    {groupedActivities[day]?.map((activity: any, index: number) => (
-                                        <Draggable key={activity.title} draggableId={activity.title} index={index}>
-                                            {(provided) => (
-                                                <div
-                                                    className="activity-card"
-                                                    ref={provided.innerRef}
-                                                    {...provided.draggableProps}
-                                                    {...provided.dragHandleProps}
-                                                >
-                                                    {activity.imagePath && (
-                                                        <div className="activity-image-wrapper">
-                                                            <img src={activity.imagePath} alt={activity.title} className="activity-image" />
-                                                        </div>
-                                                    )}
-                                                    <h4>{activity.title}</h4>
-                                                    <button
-                                                        className="delete-activity-button"
-                                                        onClick={() => deleteActivity(activity.title)}
-                                                    >
-                                                        🗑
-                                                    </button>
-                                                </div>
-                                            )}
-                                        </Draggable>
-                                    ))}
-                                    {provided.placeholder}
-                                </div>
-                            )}
-                        </Droppable>
-                    </div>
+                    <DaySection
+                        key={day}
+                        day={day}
+                        activities={groupedActivities[day] || []}
+                        onDelete={deleteActivity}
+                    />
                 ))}
             </DragDropContext>
         </div>
