@@ -6,7 +6,11 @@ import RegisterPage from "./Pages/RegisterPage.tsx";
 import HelloPage from "./Pages/HelloPage.tsx";
 import {useEffect, useState} from "react";
 import axios from "axios";
-import ProtectedRoute from "./ProtectedRoute.tsx";
+import ProtectedRoute from "./components/ProtectedRoute.tsx";
+import DestinationPage from "./Pages/DestinationPage.tsx";
+import MyTripPage from "./Pages/MyTripPage.tsx";
+import MyTripsOverviewPage from "./Pages/MyTripsOverviewPage.tsx";
+import Layout from "./components/Layout.tsx";
 
 function App() {
     const [user, setUser] = useState<string>("anonymousUser")
@@ -19,10 +23,18 @@ function App() {
 
           <Routes>
               <Route path="/" element={<HomePage/>} />
+
+              <Route element={<Layout user={user} setUser={setUser} />}>
+                  <Route path="/destination/:id" element={<DestinationPage user={user}/>} />
+              </Route>
               <Route path="/login" element={<LoginPage setUser={setUser}/>} />
               <Route path="/register" element={<RegisterPage/>} />
               <Route element={<ProtectedRoute user={user}/>}>
-              <Route path="/hello" element={<HelloPage user={user} setUser={setUser}/>} />
+                  <Route element={<Layout user={user} setUser={setUser} />}>
+              <Route path="/hello" element={<HelloPage/>} />
+                  <Route path="/my-trip/:tripId" element={<MyTripPage />} />
+                  <Route path="/myTrips" element={<MyTripsOverviewPage user={user} setUser={setUser}/>} />
+              </Route>
               </Route>
           </Routes>
   );

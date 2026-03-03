@@ -1,6 +1,7 @@
 package triply.backend.service;
 
-import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import triply.backend.model.Trip;
 import triply.backend.model.TripDTO;
@@ -38,16 +39,19 @@ public class TripService implements TripServiceInterface  {
         trip.setNotes(tripDTO.getNotes());
         trip.setActivities(tripDTO.getActivities());
 
-        // Set userId from authenticated user (NOT from request!)
-        trip.setUserId("demo-user");
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        trip.setUserId(username);
         return tripRepo.save(trip);
     }
 
     @Override
     public Trip updateTrip(String id, TripDTO updatedTripDTO) {
         Trip existingTrip = getTripById(id);
-        if (!existingTrip.getUserId().equals("demo-user")) {
-            throw new RuntimeException("Not allowed to update this trip");
+
+        String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        if (!existingTrip.getUserId().equals(currentUsername)) {
+            throw new AccessDeniedException("Not allowed to update this trip!");
         }
 
         existingTrip.setTitle(updatedTripDTO.getTitle());

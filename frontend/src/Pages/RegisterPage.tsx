@@ -1,6 +1,7 @@
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {type SubmitEvent,useState} from "react";
 import axios from "axios";
+import logo from "../assets/logo.png";
 
 export default function RegisterPage() {
     const [firstName, setFirstName] = useState<string>("")
@@ -34,13 +35,22 @@ export default function RegisterPage() {
             password
         })
             .then(() => nav("/login"))
-            .catch(() => setError("Registration failed!"));
+            .catch((err) => {
+                if (err.response?.status === 409) {
+                    setError("Username already exists!");
+                } else if (err.response?.status === 400) {
+                    setError("Invalid input data!");
+                } else {
+                    setError("Registration failed! Username or Email already exists!");
+                }
+            });
     }
-
     return (
         <div className="app-container register-page">
-            <h1 className="app-title">Triply</h1>
-            <p className="app-subtitle">Glad you’re here! Create your account<br />
+            <Link to="/" className="logo">
+                <img src={logo} alt="Triply Logo" className="logo-img" />
+            </Link>
+            <p className="app-subtitle"  style={{ marginTop: "40px" }}>Glad you’re here! Create your account<br />
                 and start your journey!</p>
 
             <form className="login-form" onSubmit={submitRegister} noValidate>

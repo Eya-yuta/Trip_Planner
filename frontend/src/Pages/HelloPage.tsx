@@ -1,41 +1,32 @@
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useNavigate} from "react-router-dom";
 import "../Styles/HelloPage.css";
-type ProtectedRouteProps = {
-    user:string
-    setUser:(username:string) => void
-}
-export default function HelloPage(props:Readonly<ProtectedRouteProps>) {
+import {destinations} from "../Types/Destination.ts";
+
+export default function HelloPage() {
     const navigate = useNavigate();
-    function logout() {
-        axios.get("/api/user/logout")
-            .then(() => {
-                props.setUser("anonymousUser");
-                navigate("/login");
-            })
-            .catch(() => {
-                alert("Logout failed!");
-            });
-    }
-
-    const goNextPage = () => {
-        navigate("/trip");
-    };
-
-
     return (
         <div className="hello-container">
-            <div className="hello-header">
-            <h1 className="hello-title">Triply</h1>
-            <button className="logout-button" onClick={logout}>
-                Logout
-            </button>
-            </div>
             <div className="hello-content">
-                <p className="hello-subtitle">Hello {props.user}! Your trip starts now!</p>
-            <button className="next-button" onClick={goNextPage}>
-                Next
-            </button>
+                <p className="hello-subtitle">Your trip starts now!</p>
+
+                <div>
+                    <h2>Popular Destinations:</h2>
+
+                    <div className="destinations-grid">
+                        {destinations.map((dest) => (
+                            <button
+                                key={dest.id}
+                                className="destination-card"
+                                onClick={() => navigate(`/destination/${dest.id}`)}
+                                style={{ cursor: "pointer" }}
+                            >
+                                <img src={dest.image} alt={dest.name} />
+                                <h3>{dest.name}</h3>
+                            </button>
+                        ))}
+                    </div>
+                </div>
+
             </div>
         </div>
     );

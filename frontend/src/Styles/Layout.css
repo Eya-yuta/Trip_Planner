@@ -1,0 +1,30 @@
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: #f8fafc;
+    color: #1e293b;
+}
+
+/* Keep the footer at the bottom */
+#root {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    flex: 1; /* Keep the footer at the bottom*/
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 10px 10px;
+}
+
+.footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 0.9rem;
+    color: #64748b;
+    background: #ffffff;
+    border-top: 1px solid #e2e8f0;
+}

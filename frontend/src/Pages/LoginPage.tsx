@@ -1,6 +1,7 @@
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {type SubmitEvent, useState} from "react";
-import axios from "axios";
+import axios, {type AxiosError} from "axios";
+import logo from "../assets/logo.png";
 
 type LoginPageProps= {
     setUser:(username:string) => void
@@ -11,25 +12,19 @@ export default function LoginPage(props:Readonly<LoginPageProps>) {
 
     const [error, setError] = useState<string>("");
 
-    //const [email, setEmail] = useState<string>("")
     const navigate = useNavigate();
-
-        const goRegisterPage = () => {
-            navigate("/register");
-        };
 
     function submitLogin(e:SubmitEvent<HTMLFormElement>){
         e.preventDefault()
-        setError(""); // clear previous errors
+        setError("");
         axios
             .post("/api/user/login", undefined, { auth: { username, password } })
             .then((r) => {
-                props.setUser(r.data); // set user
-                navigate("/hello");    // navigate on success
+                props.setUser(r.data);
+                navigate("/hello");
             })
-            .catch((err) => {
-                // Check for authentication error
-                if (err.response && err.response.status === 401) {
+            .catch((err: AxiosError) => {
+                if (err.response?.status === 401) {
                     setError("Username or password is incorrect!");
                 } else {
                     setError("An unexpected error occurred. Please try again!");
@@ -38,7 +33,9 @@ export default function LoginPage(props:Readonly<LoginPageProps>) {
     }
     return (
         <div className="app-container">
-            <h1 className="app-title">Triply</h1>
+            <Link to="/" className="logo">
+                <img src={logo} alt="Triply Logo" className="logo-img" />
+            </Link>
             <p className="app-subtitle">Let’s get started!</p>
 
             <form className="login-form" onSubmit={submitLogin} noValidate>
@@ -53,15 +50,12 @@ export default function LoginPage(props:Readonly<LoginPageProps>) {
                 </button>
                 {error && <p className="error-text">{error}</p>}
             </form>
-            {/* Register Hinweis */}
+            {/* Register text */}
             <p className="register-text">
                 Don't have an account yet?{" "}
-                <span
-                    className="register-link"
-                    onClick={goRegisterPage}
-                >
-          Register
-        </span>
+                <Link to="/register" className="register-link">
+                    Register
+                </Link>
             </p>
         </div>
     );

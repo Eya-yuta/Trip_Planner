@@ -11,5 +11,5 @@ import lombok.NoArgsConstructor;
 public class Activity {
     private int day;
     private String title;
-
+    private String imagePath;
 }

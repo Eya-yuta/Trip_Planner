@@ -1,12 +1,11 @@
 .hello-container {
-    height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;  /* keep items at top */
     align-items: flex-start;      /* align left, not center */
-    padding-top: 100px;           /* distance from top / header */
-    padding-left: 20px;           /* align with header padding */
-    padding-right: 20px;          /* optional right padding */
+    padding-top: 1px;
+    padding-left: 20px;
+    padding-right: 20px;
+    position: relative;
 }
 
 .hello-title {
@@ -18,14 +17,13 @@
 }
 
 .hello-subtitle {
-    font-size: 25px;
+    font-size: 35px;
     font-weight: bold;
     text-align: left;             /* align text left */
     color: #334155;
-    margin-top: 25px;
+    margin-top: 1px;
 }
 
-/* Header: title left, logout right, fixed at top */
 .hello-header {
     display: flex;
     justify-content: space-between;
@@ -40,18 +38,50 @@
     z-index: 1000;
     box-sizing: border-box;
 }
+h2{
+    margin-top:20px;
+}
 
-/* Logout button */
 .logout-button {
     padding: 12px 24px;
     font-size: 1rem;
     cursor: pointer;
     white-space: nowrap;
+    border-radius: 6px;
+    font-weight: 500;
 }
-.hello-content {   /* new class for the inner div */
+.hello-content {
     display: flex;
     flex-direction: column;
     align-items: flex-start; /* left-align children */
-    width: 100%;             /* take full width */
+    width: 100%;
     margin-top: 25px;
+}
+
+.newTrip-button {
+        position: fixed;
+        top: 140px;
+        right: 55px;
+
+        padding: 0.8rem 1.6rem;
+        font-size: 1rem;
+        font-weight: 600;
+
+        color: white;
+        background: linear-gradient(135deg, #22c55e, #16a34a);
+
+        border: none;
+        border-radius: 999px;
+        cursor: pointer;
+
+        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        transition: all 0.25s ease;
+
+        z-index: 9999;
+}
+
+.newTrip-button:hover {
+    background-color: #16a34a;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.2);
 }

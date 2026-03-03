@@ -1,81 +1,20 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.HomePage {
+    background-color: #ffffff; /* gleiche Farbe wie Navbar für Einheit */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* zentriert horizontal */
+    padding-top: 4px; /* Abstand von oben */
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
-
-/* Start */
 .app-container {
     height: 100vh;
     display: flex;
-    /* align top */
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;/* center horizontally */
-    padding-top: 5px;/* Distance from top edge */
+    margin-top: 1px;/* Distance from top edge */
+    background-color:white;
 }
 
 .app-title {
@@ -91,29 +30,49 @@ button:focus-visible {
     font-weight: bold;
     text-align: center;
     color: #334155; /* dark grey*/
-    margin-top: 25px; /*distance to the title*/
+    margin-top: 0; /*distance to the title*/
 }
+h2{
+    color: #334155;
+    padding-top: 15px;
+    padding-bottom: 8px;
+}
+.logo {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    text-decoration: none;
+}
+
+.logo-img {
+    height: 250px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto; /* Logo bleibt zentriert */
+    position: relative;
+}
+
 .next-button {
-    position: fixed;        /* fixed at the bottom right */
-    bottom: 2rem;           /* distance from the bottom */
-    right: 2rem;            /* distance from the right */
-    padding: 0.75rem 1.5rem; /* generous inner padding */
-    font-size: 1.25rem;     /* font size */
-    font-weight: bold;       /* bold text */
-    color: white;           /* text color */
-    background-color: #1d4ed8; /* blue, same as App name */
+    position: absolute;  /* Position absolut relativ zu HomePage */
+    top: 40px;           /* Abstand vom oberen Rand */
+    right: 137px;         /* Abstand vom rechten Rand */
+    padding: 0.75rem 1.5rem;
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: white;
+    background-color: #22c55e;
     border: none;
-    border-radius: 0.5rem;  /* rounded corners */
+    border-radius: 0.5rem;
     cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* subtle shadow */
-    transition: transform 0.2s, background-color 0.2s; /* hover effect */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s, background-color 0.2s;
 }
 
 .next-button:hover {
-    background-color: #2563eb; /* lighter blue on hover */
-    transform: translateY(-2px); /* small "lift" effect */
+    background-color: #16a34a;
+    transform: translateY(-1px);
 }
-/* Login Form */
 .login-form {
     display: flex;
     flex-direction: column;
@@ -131,11 +90,15 @@ button:focus-visible {
 .submit-button {
     padding: 0.5rem;
     font-size: 1rem;
-    background-color: #1d4ed8;
+    background-color: #22c55e;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+}
+.submit-button:hover {
+    background-color: #16a34a;
 }
 .login-form label {
     font-weight: bold;
@@ -149,7 +112,7 @@ button:focus-visible {
 }
 
 .register-link {
-    color: #1d4ed8;
+    color: #16a34a;
     font-weight: bold;
     cursor: pointer;
     margin-left: 0.3rem;
@@ -159,7 +122,7 @@ button:focus-visible {
     text-decoration: underline;
 }
 .register-page .login-form {
-    margin-top: 4px; /* smaller distance hier */
+    margin-top: 30px; /* smaller distance hier */
 }
 .error-text {
     margin-top: 1rem;
@@ -173,3 +136,49 @@ button:focus-visible {
     text-align: center;
 }
 
+/* destinations */
+.destinations-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 Bilder pro Reihe */
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.destination-card {
+    text-align: center;
+    border-radius: 15px;
+    overflow: hidden;
+    background-color: #f1f5f9;
+    flex-direction: column;
+    display: flex;
+    padding: 10px;
+}
+
+.destination-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    transition: 0.3s;
+    object-position: top;
+}
+
+.destination-card img:hover {
+    transform: scale(1.05);
+}
+
+.destination-card h3 {
+    margin-top: 12px;
+    font-size: 18px;
+}
+/*For Phones*/
+@media (max-width: 900px) {
+    .destinations-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .destinations-grid {
+        grid-template-columns: 1fr;
+    }
+}
