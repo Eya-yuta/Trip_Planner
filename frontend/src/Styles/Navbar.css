@@ -134,7 +134,20 @@
     background: #16a34a;
     transform: translateY(-1px);
 }
+.dropdown-button {
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    padding: 8px 12px;
+    font-size: 1rem;
+    cursor: pointer;
+    color: #2c2c2c;
+}
 
+.dropdown-button:hover {
+    background: #f0fdf4;
+}
 @media (max-width: 768px) {
     .navbar {
         flex-direction: column;

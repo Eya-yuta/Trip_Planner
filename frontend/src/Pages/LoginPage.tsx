@@ -1,6 +1,6 @@
 import {Link, useNavigate} from "react-router-dom";
 import {type SubmitEvent, useState} from "react";
-import axios from "axios";
+import axios, {type AxiosError} from "axios";
 import logo from "../assets/logo.png";
 
 type LoginPageProps= {
@@ -23,8 +23,8 @@ export default function LoginPage(props:Readonly<LoginPageProps>) {
                 props.setUser(r.data);
                 navigate("/hello");
             })
-            .catch((err) => {
-                if (err.response && err.response.status === 401) {
+            .catch((err: AxiosError) => {
+                if (err.response?.status === 401) {
                     setError("Username or password is incorrect!");
                 } else {
                     setError("An unexpected error occurred. Please try again!");
